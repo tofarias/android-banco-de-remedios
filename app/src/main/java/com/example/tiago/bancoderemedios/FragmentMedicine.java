@@ -1,15 +1,16 @@
 package com.example.tiago.bancoderemedios;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,13 +20,13 @@ public class FragmentMedicine extends Fragment {
 
     Calendar calendarDtValidade;
     EditText editTextDtValidade;
+    Spinner spinnerTipoMedicamento;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_medicine, container, false);
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -36,8 +37,19 @@ public class FragmentMedicine extends Fragment {
         this.editTextDtValidade = (EditText) getActivity().findViewById( R.id.editTextDtValidade );
         this.editTextDtValidade.setOnFocusChangeListener( this.editTextDtValidadeOnFocusChangeListener );
 
-        this.calendarDtValidade = Calendar.getInstance();
+        this.spinnerTipoMedicamento = (Spinner) getActivity().findViewById( R.id.spinnerTipoMedicamento);
+        this.populateSpinnerTipoMedicamento();
 
+        this.calendarDtValidade = Calendar.getInstance();
+    }
+
+    private void populateSpinnerTipoMedicamento(){
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.medicine_type, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.spinnerTipoMedicamento.setAdapter(adapter);
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

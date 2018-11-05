@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="medicine_type">
+        <item>Selecione</item>
+        <item>Cápsulas / Comprimidos</item>
+        <item>Creme / Pomada / Gel</item>
+        <item>Inalantes / Aerosol</item>
+        <item>Injeção</item>
+        <item>Pó</item>
+        <item>Solução / Gotas</item>
+        <item>Supositório / Óvulo</item>
+        <item>Tablete</item>
+        <item>Xarope</item>
+    </string-array>
+</resources>
