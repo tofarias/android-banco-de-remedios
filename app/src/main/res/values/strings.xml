@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Banco de Remedios</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- MENU -->
+    <string name="nav_header_user">Usuário</string>
+    <string name="nav_header_medicine">Medicamentos</string>
+    <string name="nav_header_title">John Doe</string>
+    <string name="nav_header_subtitle">john.doe@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
 </resources>
