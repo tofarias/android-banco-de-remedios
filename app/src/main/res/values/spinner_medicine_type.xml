@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="medicine_type">
+    <string-array name="types">
         <item>Selecione</item>
         <item>Cápsulas / Comprimidos</item>
         <item>Creme / Pomada / Gel</item>

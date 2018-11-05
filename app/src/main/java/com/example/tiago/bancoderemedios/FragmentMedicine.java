@@ -46,7 +46,7 @@ public class FragmentMedicine extends Fragment {
     private void populateSpinnerTipoMedicamento(){
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.medicine_type, android.R.layout.simple_spinner_item);
+                R.array.types, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.spinnerTipoMedicamento.setAdapter(adapter);

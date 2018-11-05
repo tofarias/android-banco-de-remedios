@@ -10,5 +10,6 @@
     <string name="nav_header_title">John Doe</string>
     <string name="nav_header_subtitle">john.doe@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="tipo_medicamento1">Tipo:</string>
 
 </resources>
