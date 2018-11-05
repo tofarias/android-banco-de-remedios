@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_user:
                 fragment = new FragmentUser();
                 break;
+            case R.id.nav_medicine:
+                fragment = new FragmentMedicine();
+                break;
         }
 
         if (fragment != null) {
