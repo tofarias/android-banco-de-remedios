@@ -19,7 +19,7 @@ import java.util.Locale;
 public class FragmentMedicine extends Fragment {
 
     Calendar calendarDtValidade;
-    EditText editTextDtValidade;
+    EditText editTextDtValidade, editTextNome;
     Spinner spinnerTipoMedicamento;
 
     @Nullable
@@ -33,6 +33,8 @@ public class FragmentMedicine extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle(R.string.nav_header_medicine);
+
+        getActivity().findViewById(R.id.editTextNome).requestFocus();
 
         this.editTextDtValidade = (EditText) getActivity().findViewById( R.id.editTextDtValidade );
         this.editTextDtValidade.setOnFocusChangeListener( this.editTextDtValidadeOnFocusChangeListener );
