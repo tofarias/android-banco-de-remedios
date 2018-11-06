@@ -1,4 +1,4 @@
-package com.example.tiago.bancoderemedios;
+package com.example.tiago.bancoderemedios.fragmet;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.example.tiago.bancoderemedios.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

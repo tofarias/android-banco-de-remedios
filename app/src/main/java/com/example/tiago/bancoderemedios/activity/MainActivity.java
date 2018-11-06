@@ -1,4 +1,4 @@
-package com.example.tiago.bancoderemedios;
+package com.example.tiago.bancoderemedios.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.tiago.bancoderemedios.R;
+import com.example.tiago.bancoderemedios.fragmet.FragmentMedicine;
+import com.example.tiago.bancoderemedios.fragmet.FragmentUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
