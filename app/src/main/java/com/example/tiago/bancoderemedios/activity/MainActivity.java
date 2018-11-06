@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragmet.FragmentMedicamento;
+import com.example.tiago.bancoderemedios.fragmet.FragmentNotificacao;
 import com.example.tiago.bancoderemedios.fragmet.FragmentUsuario;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_medicine:
                 fragment = new FragmentMedicamento();
+                break;
+            case R.id.nav_notificacoes:
+                fragment = new FragmentNotificacao();
                 break;
         }
 
