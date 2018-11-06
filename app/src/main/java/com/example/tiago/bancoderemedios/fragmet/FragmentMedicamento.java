@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class FragmentMedicine extends Fragment {
+public class FragmentMedicamento extends Fragment {
 
     Calendar calendarDtValidade;
     EditText editTextDtValidade, editTextNome;
@@ -27,7 +27,7 @@ public class FragmentMedicine extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_medicine, container, false);
+        return inflater.inflate(R.layout.fragment_medicamento, container, false);
     }
 
     @Override
