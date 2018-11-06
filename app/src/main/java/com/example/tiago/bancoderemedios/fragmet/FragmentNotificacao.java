@@ -64,12 +64,12 @@ public class FragmentNotificacao extends Fragment {
     public void criarNotificacaoSimples(){
 
         int id = 1;
-        String titulo = "Titulo da Notificação";
-        String texto = "Texto da notificação simples";
+        String titulo = "Novo Medicamento Cadastrado";
+        String texto = "Adicionado o medicamento XYZ";
         int icone = android.R.drawable.ic_dialog_info;
 
         Intent intent = new Intent(getContext(),TextoActivity.class);
-        intent.putExtra("txt","Você abriu uma notificação simples");
+        intent.putExtra("txt","Detalhes do medicamento cadastrado");
 
         PendingIntent pendingIntent = getPendingIntent(id, intent, getContext());
 
