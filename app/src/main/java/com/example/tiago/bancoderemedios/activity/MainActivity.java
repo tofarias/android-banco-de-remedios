@@ -1,5 +1,7 @@
 package com.example.tiago.bancoderemedios.activity;
 
+import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,22 +12,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
 import com.example.tiago.bancoderemedios.fragment.FragmentUsuario;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
                                                                ,GoogleApiClient.OnConnectionFailedListener {
     private FirebaseAuth mFirebaseAuth;
     private GoogleApiClient mGoogleApiClient;
+    private GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* INICIO AUTH */
 
-        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -43,11 +57,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        if( this.mGoogleApiClient == null || !this.mGoogleApiClient.isConnected() ){
-            startActivity(new Intent(this,LoginActivity.class));
-            //finish();
-        }*/
 
         /* FIM AUTH */
 
@@ -121,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_notificacoes:
                 fragment = new FragmentNotificacao();
                 break;
+            case R.id.nav_sair:
+                signOut();
+                break;
         }
 
         if (fragment != null) {
@@ -137,8 +149,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
 
-        /*this.mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = this.mFirebaseAuth.getCurrentUser();*/
+        this.mFirebaseAuth = FirebaseAuth.getInstance();
+        //FirebaseUser currentUser = this.mFirebaseAuth.getCurrentUser();
+
+        if( GoogleSignIn.getLastSignedInAccount(this) == null ){
+            startActivity(new Intent(this,LoginActivity.class));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    private void signOut(){
+
+        this.mFirebaseAuth.signOut();
+        Log.i("mFirebaseAuth","Desconectado do Firebase");
+
+        Auth.GoogleSignInApi.signOut( this.mGoogleApiClient ).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+            Log.i("GoogleSignInApi","Desconectado do Google");
+            }
+        });
     }
 
     @Override

@@ -89,9 +89,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
-                            /*FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                            Log.i("FirebaseUser",user.getDisplayName());
-                            Log.i("FirebaseEmail",user.getEmail());*/
+                            FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                            Log.i("FFirebaseAuth",user.getDisplayName());
+                            Log.i("FFirebaseAuth",user.getEmail());
 
                             finish();
 
