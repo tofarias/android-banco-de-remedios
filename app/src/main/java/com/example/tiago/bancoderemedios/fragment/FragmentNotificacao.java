@@ -61,12 +61,14 @@ public class FragmentNotificacao extends Fragment {
 
         Intent intent = new Intent(getContext(),TextoActivity.class);
         intent.putExtra("txt","Detalhes do medicamento cadastrado");
+        intent.putExtra("id",id);
 
         PendingIntent pendingIntent = getPendingIntent(id, intent, getContext());
 
         NotificationCompat.Builder notificacao = new NotificationCompat.Builder(getContext(),getString(R.string.default_notification_channel_id));
         notificacao.setSmallIcon( icone ).setContentTitle(titulo).setContentText(texto);
         notificacao.setContentIntent( pendingIntent );
+        notificacao.setAutoCancel(true);
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(getContext());
         nm.notify(id, notificacao.build());
