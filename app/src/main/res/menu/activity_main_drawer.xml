@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/nav_header_medicine" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_notificacoes"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Notificacoes" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

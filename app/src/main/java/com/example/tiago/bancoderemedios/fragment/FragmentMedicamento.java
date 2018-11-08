@@ -1,4 +1,4 @@
-package com.example.tiago.bancoderemedios.fragmet;
+package com.example.tiago.bancoderemedios.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
