@@ -61,7 +61,6 @@ public class FragmentNotificacao extends Fragment {
 
         Intent intent = new Intent(getContext(),TextoActivity.class);
         intent.putExtra("txt","Detalhes do medicamento cadastrado");
-        intent.putExtra("id",id);
 
         PendingIntent pendingIntent = getPendingIntent(id, intent, getContext());
 
