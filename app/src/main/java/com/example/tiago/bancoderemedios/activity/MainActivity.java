@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Glide.with(this)
                     .load(this.account.getPhotoUrl().toString())
-                    .into(imageViewUsuario);''
+                    .into(imageViewUsuario);
         }
 
     }
