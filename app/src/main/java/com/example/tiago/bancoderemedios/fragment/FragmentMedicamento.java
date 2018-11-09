@@ -38,7 +38,9 @@ public class FragmentMedicamento extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_medicamento, container, false);
+        View view = inflater.inflate(R.layout.fragment_medicamento, container, false);
+
+        return view;
     }
 
     @Override
