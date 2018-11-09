@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    private void displaySelectedScreen(int itemId) {
 
+        private void displaySelectedScreen(int itemId) {
         Fragment fragment = null;
 
         switch (itemId){

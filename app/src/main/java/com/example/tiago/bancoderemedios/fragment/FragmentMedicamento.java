@@ -8,11 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.R;
+import com.example.tiago.bancoderemedios.model.Medicamento;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,8 +27,13 @@ import java.util.Locale;
 public class FragmentMedicamento extends Fragment {
 
     Calendar calendarDtValidade;
-    EditText editTextDtValidade, editTextNome;
+    EditText editTextDtValidade, editTextNome, editTextPrincipioAtivo, editTextLaboratorio;
     Spinner spinnerTipoMedicamento;
+    Button btnSalvar;
+
+    private FirebaseAuth mFirebaseAuth;
+    FirebaseDatabase mFirebaseDatabase;
+    DatabaseReference mDatabaseMedicamentos;
 
     @Nullable
     @Override
@@ -34,9 +45,20 @@ public class FragmentMedicamento extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.mFirebaseAuth     = FirebaseAuth.getInstance();
+        this.mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+        this.mDatabaseMedicamentos = this.mFirebaseDatabase.getReference("medicamentos");
+
+        //
+
         getActivity().setTitle(R.string.nav_header_medicine);
 
         getActivity().findViewById(R.id.editTextNome).requestFocus();
+
+        this.editTextNome           = (EditText) getActivity().findViewById(R.id.editTextNome);
+        this.editTextPrincipioAtivo = (EditText) getActivity().findViewById(R.id.editTextPrincipioAtivo);
+        this.editTextLaboratorio    = (EditText) getActivity().findViewById(R.id.editTextLaboratorio);
 
         this.editTextDtValidade = (EditText) getActivity().findViewById( R.id.editTextDtValidade );
         this.editTextDtValidade.setOnFocusChangeListener( this.editTextDtValidadeOnFocusChangeListener );
@@ -45,7 +67,31 @@ public class FragmentMedicamento extends Fragment {
         this.populateSpinnerTipoMedicamento();
 
         this.calendarDtValidade = Calendar.getInstance();
+
+        this.btnSalvar = (Button) getActivity().findViewById(R.id.btnSalvar) ;
+        this.btnSalvar.setOnClickListener( btnSalvarOnClickListener );
     }
+
+    private View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Medicamento medicamento = new Medicamento(
+                    editTextNome.getText().toString().trim(),
+                    editTextLaboratorio.getText().toString().trim(),
+                    editTextPrincipioAtivo.getText().toString().trim()
+            );
+
+            try {
+                String uui = mDatabaseMedicamentos.push().getKey();
+                mDatabaseMedicamentos.child( uui ).setValue(medicamento);
+
+                Toast.makeText(getContext(), "Salvando Dados", Toast.LENGTH_LONG).show();
+            }catch (Exception e){
+                Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+            }
+        }
+    };
 
     private void populateSpinnerTipoMedicamento(){
 
