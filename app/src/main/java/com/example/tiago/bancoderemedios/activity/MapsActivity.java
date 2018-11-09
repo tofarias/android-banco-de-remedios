@@ -1,17 +1,28 @@
 package com.example.tiago.bancoderemedios.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.tiago.bancoderemedios.R;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,6 +34,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
+    Handler mHandler;
+    int mTentativas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +50,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addConnectionCallbacks(this)
                 .addApi(LocationServices.API)
                 .build();
+
+        this.mHandler = new Handler();
     }
 
     @Override
@@ -44,7 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         LatLng sydney = new LatLng(-30.028201, -51.227365);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Praça Quinze"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-30.028201, -51.227365), 17f));
     }
@@ -58,16 +73,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onStop() {
-        super.onStop();
 
         if (this.mGoogleApiClient != null && this.mGoogleApiClient.isConnected()) {
             this.mGoogleApiClient.disconnect();
         }
+
+        this.mHandler.removeCallbacksAndMessages( null );
+
+        super.onStop();
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        this.obterLocalizacao();
+        this.verificarStatusGps();
     }
 
     @Override
@@ -96,7 +114,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Location location = LocationServices.FusedLocationApi.getLastLocation(this.mGoogleApiClient);
 
             if( location != null ){
+                this.mTentativas = 0;
                 this.atualizarMapa(new LatLng(location.getLatitude(), location.getLongitude()));
+            }else if( this.mTentativas < 10 ){
+                this.mTentativas++;
+                this.mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        obterLocalizacao();
+                    }
+                },2000);
             }
         }
     }
@@ -104,5 +131,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void atualizarMapa(LatLng local){
         this.mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(local, 17.0f));
         this.mMap.addMarker(new MarkerOptions().position(local).title("Local Atual!"));
+    }
+
+    private void verificarStatusGps(){
+        final LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder locationSettingRequest = new LocationSettingsRequest.Builder();
+        locationSettingRequest.setAlwaysShow(true);
+        locationSettingRequest.addLocationRequest(locationRequest);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(this.mGoogleApiClient,locationSettingRequest.build());
+
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
+                final Status status = locationSettingsResult.getStatus();
+
+                switch ( status.getStatusCode() ){
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        obterLocalizacao();
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try{
+                            status.startResolutionForResult(MapsActivity.this,2);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        Log.i("MAPS-APP", "Não foi possível obter a localização");
+                        break;
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 2){
+            if( resultCode == RESULT_OK ){
+                this.mTentativas = 0;
+                this.mHandler.removeCallbacksAndMessages( null );
+                this.obterLocalizacao();
+            }
+        }
     }
 }
