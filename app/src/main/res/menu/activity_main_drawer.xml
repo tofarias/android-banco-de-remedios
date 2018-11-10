@@ -16,10 +16,10 @@
             android:id="@+id/nav_notificacoes"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Notificações" />
-        <!--<item-->
-            <!--android:id="@+id/nav_upload"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Firebase Upload" />-->
+        <item
+            android:id="@+id/nav_upload"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Firebase Upload" />
     </group>
 
     <item android:title="Communicate">
