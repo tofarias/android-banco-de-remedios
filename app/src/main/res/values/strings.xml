@@ -8,6 +8,7 @@
     <string name="nav_header_user">Usuário</string>
     <string name="nav_header_medicine">Medicamentos</string>
     <string name="nav_header_notificacao">Notificação</string>
+    <string name="nav_header_upload">Upload Firebase</string>
     <string name="nav_header_title">John Doe</string>
     <string name="nav_header_subtitle">john.doe@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
