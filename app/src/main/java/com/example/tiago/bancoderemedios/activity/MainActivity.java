@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
+import com.example.tiago.bancoderemedios.fragment.FragmentUpload;
 import com.example.tiago.bancoderemedios.fragment.FragmentUsuario;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -130,7 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -157,6 +157,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_sair:
                 signOut();
+                break;
+            case R.id.nav_upload:
+                fragment = new FragmentUpload();
                 break;
         }
 
