@@ -161,6 +161,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_upload:
                 fragment = new FragmentUpload();
                 break;
+            case R.id.nav_map:
+                Intent myIntent = new Intent(this, MapsActivity.class);
+                startActivity(myIntent);
+                break;
         }
 
         if (fragment != null) {
