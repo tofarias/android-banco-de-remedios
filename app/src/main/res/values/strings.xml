@@ -6,6 +6,7 @@
 
     <!-- MENU -->
     <string name="nav_header_user">Usuário</string>
+    <string name="nav_header_map">Google Map</string>
     <string name="nav_header_medicine">Medicamentos</string>
     <string name="nav_header_title">John Doe</string>
     <string name="nav_header_subtitle">john.doe@android.com</string>
