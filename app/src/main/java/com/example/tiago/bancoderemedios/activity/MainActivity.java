@@ -23,12 +23,10 @@ import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
-import com.example.tiago.bancoderemedios.fragment.FragmentUpload;
 import com.example.tiago.bancoderemedios.fragment.FragmentUsuario;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* INICIO AUTH */
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -57,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        if( this.mGoogleApiClient == null || !this.mGoogleApiClient.isConnected() ){
+            startActivity(new Intent(this,LoginActivity.class));
+            //finish();
+        }*/
 
         /* FIM AUTH */
 
@@ -122,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -132,8 +136,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private void displaySelectedScreen(int itemId) {
 
-        private void displaySelectedScreen(int itemId) {
         Fragment fragment = null;
 
         switch (itemId){
@@ -149,8 +153,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_sair:
                 signOut();
                 break;
-            case R.id.nav_upload:
-                fragment = new FragmentUpload();
+            case R.id.nav_map:
+                //fragment = new FragmentMapa();
+                Intent i = new Intent(this, MapsActivity.class);
+                startActivity(i);
                 break;
         }
 
@@ -172,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //FirebaseUser currentUser = this.mFirebaseAuth.getCurrentUser();
 
         if( GoogleSignIn.getLastSignedInAccount(this) == null ){
-            startActivity(new Intent(this,LoginActivity.class));
+            //startActivity(new Intent(this,LoginActivity.class));
         }
     }
 
