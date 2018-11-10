@@ -1,5 +1,6 @@
 package com.example.tiago.bancoderemedios.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -119,7 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new FragmentMedicamento();
                 break;
             case R.id.nav_map:
-                fragment = new FragmentMapa();
+                //fragment = new FragmentMapa();
+                Intent i = new Intent(this, MapsActivity.class);
+                startActivity(i);
                 break;
         }
 
