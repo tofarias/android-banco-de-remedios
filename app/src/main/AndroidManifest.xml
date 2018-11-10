@@ -16,6 +16,7 @@
             android:value="@string/default_notification_channel_id" />
 
         <activity
+            android:noHistory="true"
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

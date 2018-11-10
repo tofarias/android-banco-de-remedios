@@ -1,12 +1,11 @@
 package com.example.tiago.bancoderemedios.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.R;
@@ -43,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //this.signInButton.setSize(SignInButton.SIZE_STANDARD);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestServerAuthCode("475543152047-pguhba1u4c5ku077j2ng7je0nn0fdiic.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
@@ -69,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (requestCode == 1) {
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.i("GoogleSignInResult", result.getStatus().toString());
             if( result.isSuccess() ){
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseLogin( account );
