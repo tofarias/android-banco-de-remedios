@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.account = GoogleSignIn.getLastSignedInAccount(this);
         if( (this.account != null) ) {
 
-            TextView textViewbemVindo = (TextView) findViewById(R.id.textViewBemVindo);
-            textViewbemVindo.setText("Bem Vindo "+this.account.getDisplayName()+"!");
-
             View headerView = navigationView.getHeaderView(0);
             TextView textViewUsuario = (TextView) headerView.findViewById(R.id.textViewUsuario);
             TextView textViewEmail = (TextView) headerView.findViewById(R.id.textViewEmail);
@@ -156,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new FragmentUpload();
                 break;
             case R.id.nav_map:
-                Intent myIntent = new Intent(this, MapsActivity.class);
+                Intent myIntent = new Intent(this, MapActivity.class);
                 startActivity(myIntent);
                 break;
         }
@@ -179,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //FirebaseUser currentUser = this.mFirebaseAuth.getCurrentUser();
 
         if( GoogleSignIn.getLastSignedInAccount(this) == null ){
-            //startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this,LoginActivity.class));
         }
     }
 

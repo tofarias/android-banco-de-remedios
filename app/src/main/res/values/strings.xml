@@ -15,7 +15,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="tipo_medicamento1">Tipo:</string>
 
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_map">Map</string>
     <string name="default_notification_channel_id">default</string>
 
 </resources>

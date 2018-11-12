@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //this.signInButton.setSize(SignInButton.SIZE_STANDARD);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestServerAuthCode("475543152047-pguhba1u4c5ku077j2ng7je0nn0fdiic.apps.googleusercontent.com")
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
