@@ -42,6 +42,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.account = GoogleSignIn.getLastSignedInAccount(this);
         if( (this.account != null) ) {
+
+            TextView textViewbemVindo = (TextView) findViewById(R.id.textViewBemVindo);
+            textViewbemVindo.setText("Bem Vindo "+this.account.getDisplayName()+"!");
 
             View headerView = navigationView.getHeaderView(0);
             TextView textViewUsuario = (TextView) headerView.findViewById(R.id.textViewUsuario);
@@ -193,14 +198,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void signOut(){
 
         this.mFirebaseAuth.signOut();
-        Log.i("mFirebaseAuth","Desconectado do Firebase");
+        Log.i("signOut","Desconectado do Firebase");
 
         Auth.GoogleSignInApi.signOut( this.mGoogleApiClient ).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-            Log.i("GoogleSignInApi","Desconectado do Google");
+            Log.i("signOut","Desconectado do Google");
             }
         });
+
+        finish();
     }
 
     @Override

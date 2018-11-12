@@ -6,6 +6,7 @@
 
     <!-- MENU -->
     <string name="nav_header_user">Usuário</string>
+    <string name="nav_header_map">Google Map</string>
     <string name="nav_header_medicine">Medicamentos</string>
     <string name="nav_header_notificacao">Notificação</string>
     <string name="nav_header_upload">Upload Firebase</string>
@@ -14,6 +15,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="tipo_medicamento1">Tipo:</string>
 
+    <string name="title_activity_maps">Map</string>
     <string name="default_notification_channel_id">default</string>
 
 </resources>
