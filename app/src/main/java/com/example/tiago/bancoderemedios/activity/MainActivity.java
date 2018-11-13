@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
+import com.example.tiago.bancoderemedios.fragment.FragmentMain;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
 import com.example.tiago.bancoderemedios.fragment.FragmentUpload;
@@ -71,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, new FragmentMain());
+        ft.commit();
 
         this.account = GoogleSignIn.getLastSignedInAccount(this);
         if( (this.account != null) ) {
