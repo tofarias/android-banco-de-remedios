@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,7 +29,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentUpload extends Fragment {
 
-    private Button btnUpload;
+    private Button btnUpload, btnDeletar;
     private ImageView imageViewFoto;
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
@@ -50,8 +53,19 @@ public class FragmentUpload extends Fragment {
         this.btnUpload = (Button) getActivity().findViewById(R.id.btnUpload);
         this.btnUpload.setOnClickListener(btnUploadOnClickListener);
 
+        this.btnDeletar = (Button) getActivity().findViewById(R.id.btnDeletar);
+        this.btnDeletar.setOnClickListener(btnDeleteOnClickListener);
+
         this.imageViewFoto = (ImageView) getActivity().findViewById(R.id.imageViewFoto);
     }
+
+    private View.OnClickListener btnDeleteOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            deletar();
+        }
+    };
 
     private View.OnClickListener btnUploadOnClickListener = new View.OnClickListener() {
         @Override
@@ -97,6 +111,23 @@ public class FragmentUpload extends Fragment {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(getContext(), "Upload com sucesso", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void deletar(){
+
+        StorageReference imagemReference = this.mStorageReference.child("imagem").child("img-001.jpg");
+
+        imagemReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getContext(), "Arquivo removido com sucesso!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("DELETE", e.getMessage().toString());
             }
         });
     }
