@@ -20,6 +20,11 @@
             android:id="@+id/nav_upload"
             android:icon="@drawable/ic_menu_manage"
             android:title="Firebase Upload" />
+
+        <item
+            android:id="@+id/nav_download"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Firebase Download" />
     </group>
 
     <item android:title="Communicate">

@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
+import com.example.tiago.bancoderemedios.fragment.FragmentDownload;
 import com.example.tiago.bancoderemedios.fragment.FragmentMain;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
@@ -160,6 +161,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_map:
                 Intent myIntent = new Intent(this, MapActivity.class);
                 startActivity(myIntent);
+                break;
+            case R.id.nav_download:
+                fragment = new FragmentDownload();
                 break;
         }
 
