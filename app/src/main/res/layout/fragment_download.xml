@@ -13,6 +13,11 @@
         android:layout_height="243dp"
         android:background="@drawable/common_google_signin_btn_icon_dark_normal_background" />
 
+    <TextView
+        android:id="@+id/textViewMetadata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/btnDownload"
         android:layout_width="match_parent"

@@ -15,16 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,6 +64,7 @@ public class FragmentDownload extends Fragment {
         @Override
         public void onClick(View v) {
             download();
+            obterMetadados();
         }
     };
 
@@ -92,6 +96,25 @@ public class FragmentDownload extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("download123", e.getMessage().toString());
+            }
+        });
+    }
+
+    public void obterMetadados(){
+        StorageReference imagemReference = this.mStorageReference.child("imagem").child("img-001.jpg");
+
+        imagemReference.getMetadata().addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+            @Override
+            public void onSuccess(StorageMetadata storageMetadata) {
+                String imgNome = storageMetadata.getName();
+                String imgTipo = storageMetadata.getContentType();
+                String caminho = storageMetadata.getPath();
+                String imgUri     = storageMetadata.getReference().getDownloadUrl().toString();
+                long size = storageMetadata.getSizeBytes() / (1024 * 1024);
+
+                TextView textViewMetadados = (TextView) getActivity().findViewById(R.id.textViewMetadata);
+                textViewMetadados.setText("Nome: "+imgNome+"\nTipo: "+imgTipo+"\nCaminho: "+caminho+
+                                          "\nURI: "+imgUri+"\nTamanho (MB): "+Long.toString(size));
             }
         });
     }
