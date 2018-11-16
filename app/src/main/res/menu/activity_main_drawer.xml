@@ -34,6 +34,10 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Mapa" />
             <item
+                android:id="@+id/nav_retrofit_ibge"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Retrofit IBGE" />
+            <item
                 android:id="@+id/nav_sair"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Sair" />

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentDownload;
+import com.example.tiago.bancoderemedios.fragment.FragmentIBGE;
 import com.example.tiago.bancoderemedios.fragment.FragmentMain;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
@@ -164,6 +165,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_download:
                 fragment = new FragmentDownload();
+                break;
+            case R.id.nav_retrofit_ibge:
+                fragment = new FragmentIBGE();
                 break;
         }
 
