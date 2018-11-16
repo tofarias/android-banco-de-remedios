@@ -14,20 +14,20 @@ import android.widget.Toast;
 
 import com.example.tiago.bancoderemedios.IBGEApi.ControlLifeCycle;
 import com.example.tiago.bancoderemedios.IBGEApi.Estado;
+import com.example.tiago.bancoderemedios.IBGEApi.Municipio;
 import com.example.tiago.bancoderemedios.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Header;
 
 public class FragmentIBGE extends Fragment {
 
-    private Spinner spinnerEstado;
+    private Spinner spinnerEstado, spinnerMunicipio;
 
     @Nullable
     @Override
@@ -47,29 +47,35 @@ public class FragmentIBGE extends Fragment {
         this.spinnerEstado = (Spinner) getActivity().findViewById(R.id.spinnerEstado);
         this.spinnerEstado.setOnItemSelectedListener( spinnerEstadoOnItemSelectedListener );
 
+        this.spinnerMunicipio = (Spinner) getActivity().findViewById(R.id.spinnerMunicipio);
+
         try {
-            call = ControlLifeCycle.service.detailTitle();
+            call = ControlLifeCycle.service.listStates();
+            Toast.makeText(getContext(), call.request().url().toString(), Toast.LENGTH_LONG).show();
         }catch (Exception e){
             Log.e("Call<Estado>",e.getMessage().toString());
         }
 
 
-        call.enqueue(new Callback<List<Estado>>() {
+        call.enqueue( getListEstados() );
+    }
 
+    private Callback<List<Estado>> getListEstados(){
+
+        return new Callback<List<Estado>>() {
             @Override
             public void onResponse(Call<List<Estado>> call, Response<List<Estado>> response) {
 
                 if( response != null) {
 
                     if (response.isSuccessful()) {
-                        List<String> listEstados = new ArrayList<>();
+
+                        List<Estado> listEstados = new ArrayList<>();
 
                         for (Estado res : response.body()) {
 
-                            listEstados.add(res.sigla + " - " + res.nome);
+                            listEstados.add( new Estado(res.id, res.nome, res.sigla) );
                         }
-                        Collections.sort(listEstados);
-                        listEstados.add(0, "Selecione");
 
                         ArrayAdapter userAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, listEstados.toArray());
                         spinnerEstado.setAdapter(userAdapter);
@@ -81,8 +87,38 @@ public class FragmentIBGE extends Fragment {
             public void onFailure(Call<List<Estado>> call, Throwable t) {
                 Log.e("onFailure", t.getMessage().toString());
             }
-        });
-    }
+        };
+    };
+
+    private Callback<List<Municipio>> getListMunicipios(){
+
+        return new Callback<List<Municipio>>() {
+            @Override
+            public void onResponse(Call<List<Municipio>> call, Response<List<Municipio>> response) {
+
+                if( response != null) {
+
+                    if (response.isSuccessful()) {
+
+                        List<Municipio> listMunicipios = new ArrayList<>();
+
+                        for (Municipio res : response.body()) {
+
+                            listMunicipios.add( new Municipio(res.id, res.nome) );
+                        }
+
+                        ArrayAdapter municipioAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, listMunicipios.toArray());
+                        spinnerMunicipio.setAdapter(municipioAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Municipio>> call, Throwable t) {
+                Log.e("onFailure", t.getMessage().toString());
+            }
+        };
+    };
 
     private AdapterView.OnItemSelectedListener spinnerEstadoOnItemSelectedListener = new AdapterView.OnItemSelectedListener() {
         @Override
@@ -90,9 +126,17 @@ public class FragmentIBGE extends Fragment {
 
             if( parent.getSelectedItemPosition() > 0 ){
                 Estado estado = (Estado) parent.getSelectedItem();
-                Toast.makeText(getContext(), "id: "+estado.id+",  nome : "+estado.nome+", sigla: "+estado.sigla, Toast.LENGTH_LONG).show();
-            }
+                Call<List<Municipio>> call = null;
 
+                try {
+                    call = ControlLifeCycle.service.listCountiesByState(estado.id);
+                    Toast.makeText(getContext(), call.request().url().toString(), Toast.LENGTH_LONG).show();
+                }catch (Exception e){
+                    Log.e("Call<Municipio>",e.getMessage().toString());
+                }
+
+                call.enqueue( getListMunicipios() );
+            }
         }
 
         @Override
@@ -100,17 +144,4 @@ public class FragmentIBGE extends Fragment {
 
         }
     };
-
-    /*spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-            Country country = (Country) parent.getSelectedItem();
-            Toast.makeText(context, "Country ID: "+country.getId()+",  Country Name : "+country.getName(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-        }
-    });*/
 }
