@@ -10,8 +10,8 @@ import retrofit2.http.Query;
 public interface IBGEService {
 
     @GET("api/v1/localidades/estados")
-    Call<List<Estado>> listStates();
+    Call<List<Estado>> listEstados();
 
     @GET("api/v1/localidades/estados/{id}/municipios")
-    Call<List<Municipio>> listCountiesByState(@Path("id") String Id);
+    Call<List<Municipio>> listMunicipiosPorEstado(@Path("id") String Id);
 }

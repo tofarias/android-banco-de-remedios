@@ -23,7 +23,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Header;
 
 public class FragmentIBGE extends Fragment {
 
@@ -34,8 +33,6 @@ public class FragmentIBGE extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment_ibge, container, false);
 
-
-
         return view;
     }
 
@@ -43,21 +40,22 @@ public class FragmentIBGE extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Call<List<Estado>> call = null;
         this.spinnerEstado = (Spinner) getActivity().findViewById(R.id.spinnerEstado);
         this.spinnerEstado.setOnItemSelectedListener( spinnerEstadoOnItemSelectedListener );
 
         this.spinnerMunicipio = (Spinner) getActivity().findViewById(R.id.spinnerMunicipio);
+        //this.spinnerMunicipio.setOnItemSelectedListener();
 
         try {
-            call = ControlLifeCycle.service.listStates();
+
+            Call<List<Estado>> call = ControlLifeCycle.service.listEstados();
+            call.enqueue( getListEstados() );
+
             Toast.makeText(getContext(), call.request().url().toString(), Toast.LENGTH_LONG).show();
+
         }catch (Exception e){
             Log.e("Call<Estado>",e.getMessage().toString());
         }
-
-
-        call.enqueue( getListEstados() );
     }
 
     private Callback<List<Estado>> getListEstados(){
@@ -124,18 +122,18 @@ public class FragmentIBGE extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            if( parent.getSelectedItemPosition() > 0 ){
-                Estado estado = (Estado) parent.getSelectedItem();
-                Call<List<Municipio>> call = null;
+            Estado estado = (Estado) parent.getSelectedItem();
+            Call<List<Municipio>> call = null;
 
-                try {
-                    call = ControlLifeCycle.service.listCountiesByState(estado.id);
-                    Toast.makeText(getContext(), call.request().url().toString(), Toast.LENGTH_LONG).show();
-                }catch (Exception e){
-                    Log.e("Call<Municipio>",e.getMessage().toString());
-                }
+            try {
 
+                call = ControlLifeCycle.service.listMunicipiosPorEstado(estado.id);
                 call.enqueue( getListMunicipios() );
+
+                Toast.makeText(getContext(), call.request().url().toString(), Toast.LENGTH_LONG).show();
+
+            }catch (Exception e){
+                Log.e("Call<Municipio>",e.getMessage().toString());
             }
         }
 
