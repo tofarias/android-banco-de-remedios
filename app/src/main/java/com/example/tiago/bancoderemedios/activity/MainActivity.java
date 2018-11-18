@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentDownload;
 import com.example.tiago.bancoderemedios.fragment.FragmentIBGE;
-import com.example.tiago.bancoderemedios.fragment.FragmentMain;
+import com.example.tiago.bancoderemedios.fragment.home.FragmentHome;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
 import com.example.tiago.bancoderemedios.fragment.FragmentUpload;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /* FIM AUTH */
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new FragmentMain());
+        ft.replace(R.id.content_frame, new FragmentHome());
         ft.commit();
 
         this.account = GoogleSignIn.getLastSignedInAccount(this);
@@ -168,6 +168,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_retrofit_ibge:
                 fragment = new FragmentIBGE();
+                break;
+
+            case R.id.nav_home:
+                fragment = new FragmentHome();
                 break;
         }
 
