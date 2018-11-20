@@ -29,6 +29,10 @@
             android:id="@+id/nav_download"
             android:icon="@drawable/ic_menu_manage"
             android:title="Firebase Download" />
+        <item
+            android:id="@+id/nav_wifi"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Wifi Receiver" />
     </group>
 
     <item android:title="Communicate">

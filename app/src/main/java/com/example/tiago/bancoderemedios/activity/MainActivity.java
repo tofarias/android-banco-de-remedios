@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentDownload;
 import com.example.tiago.bancoderemedios.fragment.FragmentIBGE;
+import com.example.tiago.bancoderemedios.fragment.WifiReceiverFragment;
 import com.example.tiago.bancoderemedios.fragment.home.FragmentHome;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
@@ -170,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new FragmentIBGE();
                 break;
 
-            case R.id.nav_home:
-                fragment = new FragmentHome();
+            case R.id.nav_wifi:
+                fragment = new WifiReceiverFragment();
                 break;
         }
 
