@@ -170,7 +170,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_retrofit_ibge:
                 fragment = new FragmentIBGE();
                 break;
-
+            case R.id.nav_home:
+                fragment = new FragmentHome();
+                break;
             case R.id.nav_wifi:
                 fragment = new WifiReceiverFragment();
                 break;
