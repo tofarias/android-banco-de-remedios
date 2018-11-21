@@ -7,7 +7,11 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home_24px"
-            android:title="Home" />
+            android:title="Início" />
+        <item
+            android:id="@+id/nav_cadastro"
+            android:icon="@drawable/ic_baseline_note_add_24px"
+            android:title="Cadastros" />
         <item
             android:id="@+id/nav_user"
             android:icon="@drawable/ic_baseline_person_24px"

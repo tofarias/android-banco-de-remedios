@@ -5,7 +5,7 @@
     android:id="@+id/ContraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.home.DonativoTabFragment">
+    tools:context=".fragment.cadastro.DonativoTabFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

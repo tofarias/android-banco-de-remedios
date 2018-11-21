@@ -1,4 +1,4 @@
-package com.example.tiago.bancoderemedios.fragment.home;
+package com.example.tiago.bancoderemedios.fragment.cadastro;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +20,7 @@ public class NecessidadeTabFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_necessidade_tab, container, false);
+        return inflater.inflate(R.layout.fragment_cadastro_necessidade_tab, container, false);
     }
 
     @Override

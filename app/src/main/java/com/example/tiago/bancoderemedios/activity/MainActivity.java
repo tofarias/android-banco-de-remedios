@@ -24,7 +24,7 @@ import com.example.tiago.bancoderemedios.R;
 import com.example.tiago.bancoderemedios.fragment.FragmentDownload;
 import com.example.tiago.bancoderemedios.fragment.FragmentIBGE;
 import com.example.tiago.bancoderemedios.fragment.WifiReceiverFragment;
-import com.example.tiago.bancoderemedios.fragment.home.FragmentHome;
+import com.example.tiago.bancoderemedios.fragment.cadastro.FragmentCadastro;
 import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
 import com.example.tiago.bancoderemedios.fragment.FragmentUpload;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new FragmentHome());
+        ft.replace(R.id.content_frame, new FragmentCadastro());
         ft.commit();
 
         this.account = GoogleSignIn.getLastSignedInAccount(this);
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_retrofit_ibge:
                 fragment = new FragmentIBGE();
                 break;
-            case R.id.nav_home:
-                fragment = new FragmentHome();
+            case R.id.nav_cadastro:
+                fragment = new FragmentCadastro();
                 break;
             case R.id.nav_wifi:
                 fragment = new WifiReceiverFragment();

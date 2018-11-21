@@ -1,4 +1,4 @@
-package com.example.tiago.bancoderemedios.fragment.home;
+package com.example.tiago.bancoderemedios.fragment.cadastro;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,11 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tiago.bancoderemedios.R;
-import com.example.tiago.bancoderemedios.fragment.cadastro.DonativoTabFragment;
-import com.example.tiago.bancoderemedios.fragment.cadastro.NecessidadeTabFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class FragmentHome extends Fragment {
+public class FragmentCadastro extends Fragment {
 
     private FirebaseAuth mFirebaseAuth;
 
@@ -29,7 +27,7 @@ public class FragmentHome extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_cadastro, container, false);
 
         this.setTabs();
         this.setAppBar(container);
@@ -48,7 +46,7 @@ public class FragmentHome extends Fragment {
 
     private void setViewPager(View view ) {
 
-        this.viewPager = (ViewPager) view.findViewById(R.id.viewPagerHome);
+        this.viewPager = (ViewPager) view.findViewById(R.id.viewPagerCadastro);
     }
 
     private void setTabs() {
@@ -78,7 +76,7 @@ public class FragmentHome extends Fragment {
 
     public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        String[] titulosTabs = {"Aba 1", "Aba 2"};
+        String[] titulosTabs = {"Necessidade", "Donativo"};
         private int NUM_TABS = 2;
 
         public ViewPagerAdapter(FragmentManager fm) {
