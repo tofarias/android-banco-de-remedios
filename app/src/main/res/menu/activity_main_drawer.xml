@@ -22,20 +22,20 @@
             android:title="@string/nav_header_medicine" />
         <item
             android:id="@+id/nav_notificacoes"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_baseline_sms_failed_24px"
             android:title="Notificações" />
         <item
             android:id="@+id/nav_upload"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_baseline_cloud_upload_24px"
             android:title="Firebase Upload" />
 
         <item
             android:id="@+id/nav_download"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_baseline_cloud_download_24px"
             android:title="Firebase Download" />
         <item
             android:id="@+id/nav_wifi"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_baseline_wifi_24px"
             android:title="Wifi Receiver" />
     </group>
 
