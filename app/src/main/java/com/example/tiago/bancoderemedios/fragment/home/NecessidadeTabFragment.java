@@ -21,6 +21,6 @@ public class NecessidadeTabFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //getActivity().setTitle(R.string.nav_header_user);
+        //getActivity().setTitle("Aguardando Doações");
     }
 }

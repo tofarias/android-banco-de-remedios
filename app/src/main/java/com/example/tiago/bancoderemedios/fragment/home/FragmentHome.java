@@ -53,6 +53,22 @@ public class FragmentHome extends Fragment {
 
         this.tabs = new TabLayout(getActivity());
         tabs.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#FFFFFF"));
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+                switch (tab.getPosition()){
+                    case 0: getActivity().setTitle("Aguardando Recebedores"); break;
+                    case 1: getActivity().setTitle("Aguardando Donativos"); break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
+        });
     }
 
     private void setAppBar(ViewGroup container){
@@ -71,7 +87,7 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Início");
+        //getActivity().setTitle("Início");
     }
 
     public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -90,8 +106,6 @@ public class FragmentHome extends Fragment {
 
                 case 0: return new DonativoTabFragment();
                 case 1: return new NecessidadeTabFragment();
-                //case 2: return new Tab_3_Fragment();
-
             }
 
             return null;
