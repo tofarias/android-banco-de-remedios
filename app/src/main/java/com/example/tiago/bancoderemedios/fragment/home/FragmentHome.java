@@ -14,8 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tiago.bancoderemedios.R;
-import com.example.tiago.bancoderemedios.fragment.cadastro.DonativoTabFragment;
-import com.example.tiago.bancoderemedios.fragment.cadastro.NecessidadeTabFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class FragmentHome extends Fragment {
@@ -73,12 +71,12 @@ public class FragmentHome extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Cadastros");
+        getActivity().setTitle("Início");
     }
 
     public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        String[] titulosTabs = {"Aba 1", "Aba 2"};
+        String[] titulosTabs = {"Doações", "Necessidades"};
         private int NUM_TABS = 2;
 
         public ViewPagerAdapter(FragmentManager fm) {
@@ -90,8 +88,8 @@ public class FragmentHome extends Fragment {
 
             switch ( i ){
 
-                case 0: return new NecessidadeTabFragment();
-                case 1: return new DonativoTabFragment();
+                case 0: return new DonativoTabFragment();
+                case 1: return new NecessidadeTabFragment();
                 //case 2: return new Tab_3_Fragment();
 
             }

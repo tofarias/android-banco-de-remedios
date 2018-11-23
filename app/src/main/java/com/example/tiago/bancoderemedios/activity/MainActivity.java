@@ -29,6 +29,7 @@ import com.example.tiago.bancoderemedios.fragment.FragmentMedicamento;
 import com.example.tiago.bancoderemedios.fragment.FragmentNotificacao;
 import com.example.tiago.bancoderemedios.fragment.FragmentUpload;
 import com.example.tiago.bancoderemedios.fragment.FragmentUsuario;
+import com.example.tiago.bancoderemedios.fragment.home.FragmentHome;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new FragmentCadastro());
+        ft.replace(R.id.content_frame, new FragmentHome());
         ft.commit();
 
         this.account = GoogleSignIn.getLastSignedInAccount(this);
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TextView textViewUsuario = (TextView) headerView.findViewById(R.id.textViewUsuario);
             TextView textViewEmail = (TextView) headerView.findViewById(R.id.textViewEmail);
             ImageView imageViewUsuario = (ImageView) headerView.findViewById(R.id.imageViewUsuario);
+
             imageViewUsuario.setClipToOutline(true);
             textViewUsuario.setText(this.account.getDisplayName());
             textViewEmail.setText(this.account.getEmail());
@@ -175,6 +177,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_wifi:
                 fragment = new WifiReceiverFragment();
+                break;
+            case R.id.nav_home:
+                fragment = new FragmentHome();
                 break;
         }
 
