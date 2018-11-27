@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tiago.roupas.R;
+import com.example.tiago.roupas.fragment.CameraFragment;
 import com.example.tiago.roupas.fragment.FragmentDownload;
 import com.example.tiago.roupas.fragment.FragmentIBGE;
 import com.example.tiago.roupas.fragment.FragmentMedicamento;
@@ -181,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 fragment = new FragmentHome();
                 break;
+            case R.id.nav_camera:
+                fragment = new CameraFragment();
         }
 
         if (fragment != null) {

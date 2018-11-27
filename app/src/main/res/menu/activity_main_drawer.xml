@@ -34,6 +34,10 @@
             android:icon="@drawable/ic_baseline_cloud_download_24px"
             android:title="Firebase Download" />
         <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Camera" />
+        <item
             android:id="@+id/nav_wifi"
             android:icon="@drawable/ic_baseline_wifi_24px"
             android:title="Wifi Receiver" />
