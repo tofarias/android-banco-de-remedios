@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
+import com.example.tiago.roupas.model.Necessidade;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,15 +94,15 @@ public class NecessidadeTabFragment extends Fragment {
                     String uui = currentUser.getUid();
 
                     //mDatabaseReference.child( uui ).child("user_id").setValue( account.getId().toString() );
-                    mDatabaseReference.child( uui ).child("titulo").setValue( editTextTitulo.getText().toString().trim() );
-                    mDatabaseReference.child( uui ).child("descricao").setValue( editTextDescricao.getText().toString().trim() );
-                    mDatabaseReference.child( uui ).child("justificativa").setValue( editTextJustificativa.getText().toString().trim() );
+                    //mDatabaseReference.child( uui ).child("titulo").setValue( editTextTitulo.getText().toString().trim() );
+                    //mDatabaseReference.child( uui ).child("descricao").setValue( editTextDescricao.getText().toString().trim() );
+                    //mDatabaseReference.child( uui ).child("justificativa").setValue( editTextJustificativa.getText().toString().trim() );
 
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                    String strDate = "Current Date : " + mdformat.format(calendar.getTime());
+                    Necessidade nec = new Necessidade(editTextTitulo.getText().toString().trim(),
+                                                      editTextDescricao.getText().toString().trim(),
+                                                      editTextJustificativa.getText().toString().trim());
 
-                    mDatabaseReference.child( uui ).child("created_at").setValue( mdformat.format(calendar.getTime()) );
+                    mDatabaseReference.child( uui ).push().setValue( nec );
 
                     Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                     form.clear();

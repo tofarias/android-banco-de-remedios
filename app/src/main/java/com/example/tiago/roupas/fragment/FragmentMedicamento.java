@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
-import com.example.tiago.roupas.model.Medicamento;
+//import com.example.tiago.roupas.model.Medicamento;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -78,7 +78,7 @@ public class FragmentMedicamento extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Medicamento medicamento = new Medicamento(
+            /*Medicamento medicamento = new Medicamento(
                     editTextNome.getText().toString().trim(),
                     editTextLaboratorio.getText().toString().trim(),
                     editTextPrincipioAtivo.getText().toString().trim()
@@ -91,7 +91,7 @@ public class FragmentMedicamento extends Fragment {
                 Toast.makeText(getContext(), "Salvando Dados", Toast.LENGTH_LONG).show();
             }catch (Exception e){
                 Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
-            }
+            }*/
         }
     };
 
