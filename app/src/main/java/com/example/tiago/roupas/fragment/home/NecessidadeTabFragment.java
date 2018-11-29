@@ -55,14 +55,6 @@ public class NecessidadeTabFragment extends Fragment {
 
         this.recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerViewNecessidades);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        /*Necessidade nec = new Necessidade();
-        nec.titulo = "TESTE";
-
-        this.necessidadeList.add(nec);*/
-
-
-
     }
 
     ChildEventListener childEventListener = new ChildEventListener() {
@@ -86,8 +78,6 @@ public class NecessidadeTabFragment extends Fragment {
             recyclerView.setAdapter(necessidadeAdapter);
             recyclerView.addItemDecoration(
                     new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-            //dataSnapshot.c
 
         }
 

@@ -58,8 +58,8 @@ public class FragmentHome extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
 
                 switch (tab.getPosition()){
-                    case 0: getActivity().setTitle("Aguardando Recebedores"); break;
-                    case 1: getActivity().setTitle("Aguardando Donativos"); break;
+                    case 0: getActivity().setTitle("Aguardando Donativos"); break;
+                    case 1: getActivity().setTitle("Aguardando Recebedores"); break;
                 }
             }
 
@@ -92,7 +92,7 @@ public class FragmentHome extends Fragment {
 
     public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        String[] titulosTabs = {"Doações", "Necessidades"};
+        String[] titulosTabs = {"Necessidades", "Donativos"};
         private int NUM_TABS = 2;
 
         public ViewPagerAdapter(FragmentManager fm) {
@@ -104,8 +104,9 @@ public class FragmentHome extends Fragment {
 
             switch ( i ){
 
-                case 0: return new DonativoTabFragment();
-                case 1: return new NecessidadeTabFragment();
+                case 0: return new NecessidadeTabFragment();
+                case 1: return new DonativoTabFragment();
+
             }
 
             return null;
