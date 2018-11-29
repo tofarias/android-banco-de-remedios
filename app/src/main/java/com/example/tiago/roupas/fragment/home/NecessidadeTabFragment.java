@@ -78,7 +78,7 @@ public class NecessidadeTabFragment extends Fragment {
 
                 necessidadeList.add(necessidade);
 
-                Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
             }
 
             necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
@@ -123,12 +123,14 @@ public class NecessidadeTabFragment extends Fragment {
     }
 
     public class NecessidadeHolder extends RecyclerView.ViewHolder{
-        public TextView textViewTitulo;
+
+        public TextView textViewTitulo, textViewJustificativa, textViewDescricao;
 
         public NecessidadeHolder(@NonNull final View itemView) {
             super(itemView);
 
-            this.textViewTitulo = itemView.findViewById(R.id.textViewTitulo);
+            this.textViewTitulo        = itemView.findViewById(R.id.textViewTitulo);
+            this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativa);
 
             itemView.setOnClickListener( itemViewOnClickListener );
         }
@@ -161,8 +163,11 @@ public class NecessidadeTabFragment extends Fragment {
         public void onBindViewHolder(@NonNull NecessidadeHolder holder, int position) {
 
             String titulo = this.necessidadeList.get(position).getTitulo();
+            String justificativa = this.necessidadeList.get(position).getJustificativa();
+            String descricao     = this.necessidadeList.get(position).getDescricao();
 
             holder.textViewTitulo.setText( titulo );
+            holder.textViewJustificativa.setText( justificativa );
         }
 
         @Override
