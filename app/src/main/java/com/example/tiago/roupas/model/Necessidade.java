@@ -7,14 +7,14 @@ import java.util.Map;
 
 public class Necessidade {
 
-    private String titulo;
-    private String descricao;
-    private String justificativa;
-    private String created_at;
+    public String titulo;
+    public String descricao;
+    public String justificativa;
+    public String created_at;
 
     public Necessidade()
     {
-        this.created_at = "";
+
     }
 
     public Necessidade(String titulo, String descricao, String justificativa) {
