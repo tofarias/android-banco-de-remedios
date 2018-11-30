@@ -97,11 +97,11 @@ public class FragmentMedicamento extends Fragment {
 
     private void populateSpinnerTipoMedicamento(){
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+       /* ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.types, android.R.layout.simple_spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        this.spinnerTipoMedicamento.setAdapter(adapter);
+        this.spinnerTipoMedicamento.setAdapter(adapter);*/
     }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tipo_roupas">
+        <item>Bermuda / Short</item>
+        <item>Blazers / Terno</item>
+        <item>Blusão / Suéter</item>
+        <item>Calçados</item>
+        <item>Calças</item>
+        <item>Camisas / Camiseta</item>
+        <item>Casacos / Jaquetas</item>
+    </string-array>
+</resources>
