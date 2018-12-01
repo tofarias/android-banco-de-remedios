@@ -37,7 +37,7 @@ public class FragmentUpload extends Fragment {
     private StorageReference mStorageReference;
     private static final String storageURL = "gs://doar-roupas-75d0e.appspot.com";
 
-    ProgressBar mProgressBar;
+    ProgressBar mProgressBar, mProgressBarH;
 
 
     @Nullable
@@ -63,8 +63,11 @@ public class FragmentUpload extends Fragment {
 
         this.imageViewFoto = (ImageView) getActivity().findViewById(R.id.imageViewFoto);
 
-        mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBarUpload);
-        mProgressBar.setVisibility(View.GONE);
+        //mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBarUpload);
+        //mProgressBar.setVisibility(View.GONE);
+
+        mProgressBarH = (ProgressBar) getActivity().findViewById(R.id.progressBarHorizontal);
+        mProgressBarH.setVisibility(View.GONE);
     }
 
     private View.OnClickListener btnDeleteOnClickListener = new View.OnClickListener() {
@@ -122,10 +125,13 @@ public class FragmentUpload extends Fragment {
                 double progress = (100.0 * (taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
 
                 System.out.println("Upload is " + progress + "% done");
+
                 int currentprogress = (int) progress;
 
-                mProgressBar.setVisibility(View.VISIBLE);
-                mProgressBar.setProgress(currentprogress);
+                mProgressBarH.setVisibility(View.VISIBLE);
+                mProgressBarH.setProgress(currentprogress);
+
+                Log.i("mProgressBarH", Integer.toString(currentprogress) );
             }
         });
 
@@ -133,7 +139,7 @@ public class FragmentUpload extends Fragment {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                mProgressBar.setVisibility(View.GONE);
+                mProgressBarH.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Upload com sucesso", Toast.LENGTH_LONG).show();
             }
         });

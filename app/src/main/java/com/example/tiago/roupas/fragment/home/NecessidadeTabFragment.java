@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.model.Necessidade;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -132,6 +133,8 @@ public class NecessidadeTabFragment extends Fragment {
         public void onCancelled(@NonNull DatabaseError databaseError) {
 
         }
+
+
     };
 
     private void setDatabaseReference() {
@@ -143,7 +146,7 @@ public class NecessidadeTabFragment extends Fragment {
         this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + uuid);
         //this.mDatabaseReference.addChildEventListener(childEventListener);
         this.mDatabaseReference.orderByChild("createdAt")
-                               .startAt("2018-11-30").endAt("2018-12-01")
+                               //.startAt("2018-11-30").endAt("2018-12-01")
                                //.limitToLast(4)
                                .addListenerForSingleValueEvent(valueEventListener);
     }
