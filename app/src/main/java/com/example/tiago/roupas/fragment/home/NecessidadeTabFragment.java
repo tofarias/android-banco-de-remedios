@@ -134,11 +134,13 @@ public class NecessidadeTabFragment extends Fragment {
 
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+        String uuid = FirebaseAuth.getInstance().getUid();
 
-        this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + currentUser.getUid());
+        this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + uuid);
         //this.mDatabaseReference.addChildEventListener(childEventListener);
         this.mDatabaseReference.orderByChild("createdAt")
-                               .startAt("2018-12-01 10:00:00").endAt("2018-12-01 11:00:00")
+                               .startAt("2018-11-30").endAt("2018-12-01")
+                               .limitToLast(4)
                                .addListenerForSingleValueEvent(valueEventListener);
     }
 
