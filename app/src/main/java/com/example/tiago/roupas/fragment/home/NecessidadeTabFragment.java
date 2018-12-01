@@ -1,7 +1,5 @@
 package com.example.tiago.roupas.fragment.home;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +17,11 @@ import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.model.Necessidade;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +54,7 @@ public class NecessidadeTabFragment extends Fragment {
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    ChildEventListener childEventListener = new ChildEventListener() {
+    /*ChildEventListener childEventListener = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
@@ -70,7 +67,7 @@ public class NecessidadeTabFragment extends Fragment {
 
                 necessidadeList.add(necessidade);
 
-                //Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
             }
 
             necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
@@ -100,11 +97,49 @@ public class NecessidadeTabFragment extends Fragment {
         public void onCancelled(@NonNull DatabaseError databaseError) {
 
         }
+    };*/
+
+    private ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                 Necessidade necessidade = snapshot.getValue(Necessidade.class);
+
+                necessidadeList.add(necessidade);
+
+                Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
+
+            recyclerView.setAdapter(necessidadeAdapter);
+            recyclerView.addItemDecoration(
+                    new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
     };
 
     private void setDatabaseReference() {
-        this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades");
-        this.mDatabaseReference.addChildEventListener(childEventListener);
+
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+
+        this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + currentUser.getUid());
+        //this.mDatabaseReference.addChildEventListener(childEventListener);
+        this.mDatabaseReference.orderByChild("createdAt")
+                               .startAt("2018-12-01 10:00:00").endAt("2018-12-01 11:00:00")
+                               .addListenerForSingleValueEvent(valueEventListener);
     }
 
     private void setFirebaseInstance() {
@@ -114,13 +149,14 @@ public class NecessidadeTabFragment extends Fragment {
 
     public class NecessidadeHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewTitulo, textViewJustificativa, textViewDescricao;
+        public TextView textViewTitulo, textViewJustificativa, textViewDescricao, textViewCreatedAt;
 
         public NecessidadeHolder(@NonNull final View itemView) {
             super(itemView);
 
             this.textViewTitulo        = itemView.findViewById(R.id.textViewTitulo);
             this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativa);
+            this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAt);
 
             itemView.setOnClickListener( itemViewOnClickListener );
         }
@@ -152,12 +188,14 @@ public class NecessidadeTabFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull NecessidadeHolder holder, int position) {
 
-            String titulo = this.necessidadeList.get(position).getTitulo();
+            String titulo        = this.necessidadeList.get(position).getTitulo();
             String justificativa = this.necessidadeList.get(position).getJustificativa();
             String descricao     = this.necessidadeList.get(position).getDescricao();
+            String createdAt     = this.necessidadeList.get(position).getCreatedAt();
 
             holder.textViewTitulo.setText( titulo );
             holder.textViewJustificativa.setText( justificativa );
+            holder.textViewCreatedAt.setText( createdAt );
         }
 
         @Override

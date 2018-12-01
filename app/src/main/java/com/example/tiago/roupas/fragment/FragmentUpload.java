@@ -20,6 +20,7 @@ import com.example.tiago.roupas.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -106,6 +107,13 @@ public class FragmentUpload extends Fragment {
 
         StorageReference imagemReference = this.mStorageReference.child("imagem").child("img-001.jpg");
         UploadTask uploadTask = imagemReference.putBytes(imagem);
+
+        uploadTask.addOnProgressListener(getActivity(), new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
 
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

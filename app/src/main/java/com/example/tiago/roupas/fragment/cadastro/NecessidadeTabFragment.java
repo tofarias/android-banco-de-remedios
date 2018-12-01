@@ -20,9 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class NecessidadeTabFragment extends Fragment {
 
     EditText editTextTitulo, editTextDescricao, editTextJustificativa;
@@ -117,7 +114,7 @@ public class NecessidadeTabFragment extends Fragment {
     private  void setTextViews(){
         this.textViewTitulo        = (TextView) getActivity().findViewById(R.id.textViewTitulo);
         this.textViewDescricao     = (TextView) getActivity().findViewById(R.id.textViewDescricao);
-        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewJustificativa);
+        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewCreatedAt);
     }
 
     private void setEditTexts(){

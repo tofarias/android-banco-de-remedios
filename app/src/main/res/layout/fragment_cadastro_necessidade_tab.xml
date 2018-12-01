@@ -43,7 +43,7 @@
         android:inputType="textMultiLine" />
 
     <TextView
-        android:id="@+id/textViewJustificativa"
+        android:id="@+id/textViewCreatedAt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Justificativa:" />

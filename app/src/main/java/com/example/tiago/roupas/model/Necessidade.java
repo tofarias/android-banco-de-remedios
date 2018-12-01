@@ -10,7 +10,7 @@ public class Necessidade {
     public String titulo;
     public String descricao;
     public String justificativa;
-    public String created_at;
+    public String createdAt;
 
     public Necessidade()
     {
@@ -22,7 +22,7 @@ public class Necessidade {
         this.descricao = descricao;
         this.justificativa = justificativa;
 
-        this.created_at = "";
+        this.createdAt = "";
     }
 
     public String getTitulo() {
@@ -51,18 +51,20 @@ public class Necessidade {
 
     public String getCreatedAt() {
 
-        if( this.created_at.isEmpty() ){
+        if( this.createdAt.isEmpty() ){
             Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            //SimpleDateFormat mdformat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            //SimpleDateFormat mdformat = new SimpleDateFormat("ddMMyyyyHHmmss");
+            SimpleDateFormat mdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             return mdformat.format(calendar.getTime());
         }
 
-        return created_at;
+        return createdAt;
     }
 
-    public void setCreatedAt(String created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Map<String, Object> toMap(){
@@ -72,8 +74,7 @@ public class Necessidade {
         result.put("titulo", this.getTitulo());
         result.put("descricao", this.getDescricao());
         result.put("justificatica", this.getJustificativa());
-
-        result.put("created_at", this.getCreatedAt());
+        result.put("createdAt", this.getCreatedAt());
 
         return result;
     }

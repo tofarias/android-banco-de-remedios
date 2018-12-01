@@ -79,10 +79,12 @@ public class FragmentDownload extends Fragment {
 
         StorageReference imagemReference = this.mStorageReference.child("imagem").child("img-001.jpg");
 
+        //mostra o progress dialog
+
         imagemReference.getBytes(MEGABYTES).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-
+                //da um dismiss no dialog
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                 imageViewFoto.setImageBitmap(bitmap);
             }
