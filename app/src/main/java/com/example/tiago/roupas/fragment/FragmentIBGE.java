@@ -74,7 +74,7 @@ public class FragmentIBGE extends Fragment {
 
                             listEstados.add( new Estado(res.id, res.nome, res.sigla) );
                         }
-
+                        //listEstados.
                         ArrayAdapter userAdapter = new ArrayAdapter(getContext(), R.layout.support_simple_spinner_dropdown_item, listEstados.toArray());
                         spinnerEstado.setAdapter(userAdapter);
                     }
