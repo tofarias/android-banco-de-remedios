@@ -51,7 +51,9 @@ public class NecessidadeTabFragment extends Fragment {
         this.setDatabaseReference();
 
         this.recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerViewNecessidades);
-        this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (this.recyclerView != null)
+            this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     /*ChildEventListener childEventListener = new ChildEventListener() {
@@ -118,9 +120,11 @@ public class NecessidadeTabFragment extends Fragment {
 
             necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
 
-            recyclerView.setAdapter(necessidadeAdapter);
-            recyclerView.addItemDecoration(
-                    new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            if (recyclerView != null) {
+                recyclerView.setAdapter(necessidadeAdapter);
+                recyclerView.addItemDecoration(
+                        new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            }
 
         }
 
@@ -140,7 +144,7 @@ public class NecessidadeTabFragment extends Fragment {
         //this.mDatabaseReference.addChildEventListener(childEventListener);
         this.mDatabaseReference.orderByChild("createdAt")
                                .startAt("2018-11-30").endAt("2018-12-01")
-                               .limitToLast(4)
+                               //.limitToLast(4)
                                .addListenerForSingleValueEvent(valueEventListener);
     }
 
