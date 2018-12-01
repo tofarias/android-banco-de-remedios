@@ -7,11 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.tiago.roupas.R;
 
 public class DonativoTabFragment extends Fragment {
+
+    CheckBox checkBoxCamisa;
+    EditText editTextQCamiseta;
 
 
     @Nullable
@@ -25,5 +31,24 @@ public class DonativoTabFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //getActivity().setTitle(R.string.nav_header_user);
+
+        this.checkBoxCamisa = (CheckBox) getActivity().findViewById(R.id.checkBoxCamisa);
+        this.checkBoxCamisa.setOnCheckedChangeListener(checkBoxCamisaOnCheckedChangeListener);
+
+        this.editTextQCamiseta = (EditText) getActivity().findViewById(R.id.editTextQCamiseta);
     }
+
+    private CompoundButton.OnCheckedChangeListener checkBoxCamisaOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+            if( isChecked ){
+                editTextQCamiseta.setEnabled( true );
+                editTextQCamiseta.requestFocus();
+            }else{
+                editTextQCamiseta.setEnabled( false );
+                editTextQCamiseta.setText("");
+            }
+        }
+    };
 }

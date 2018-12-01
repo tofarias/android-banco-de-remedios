@@ -33,7 +33,7 @@ public class FragmentUpload extends Fragment {
     private ImageView imageViewFoto;
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
-    private static final String storageURL = "gs://banco-de-remedios-1d9c7.appspot.com";
+    private static final String storageURL = "gs://doar-roupas-75d0e.appspot.com";
 
     @Nullable
     @Override
