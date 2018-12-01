@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
@@ -35,6 +36,9 @@ public class FragmentUpload extends Fragment {
     private FirebaseStorage mStorage;
     private StorageReference mStorageReference;
     private static final String storageURL = "gs://doar-roupas-75d0e.appspot.com";
+
+    ProgressBar mProgressBar;
+
 
     @Nullable
     @Override
@@ -58,6 +62,9 @@ public class FragmentUpload extends Fragment {
         this.btnDeletar.setOnClickListener(btnDeleteOnClickListener);
 
         this.imageViewFoto = (ImageView) getActivity().findViewById(R.id.imageViewFoto);
+
+        mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBarUpload);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     private View.OnClickListener btnDeleteOnClickListener = new View.OnClickListener() {
@@ -112,12 +119,21 @@ public class FragmentUpload extends Fragment {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
+                double progress = (100.0 * (taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
+
+                System.out.println("Upload is " + progress + "% done");
+                int currentprogress = (int) progress;
+
+                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setProgress(currentprogress);
             }
         });
 
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                mProgressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Upload com sucesso", Toast.LENGTH_LONG).show();
             }
         });

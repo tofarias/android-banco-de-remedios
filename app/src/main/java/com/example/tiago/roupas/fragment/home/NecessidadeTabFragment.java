@@ -114,7 +114,7 @@ public class NecessidadeTabFragment extends Fragment {
 
                 necessidadeList.add(necessidade);
 
-                Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
 
             }
 

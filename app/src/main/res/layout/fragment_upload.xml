@@ -28,4 +28,10 @@
         android:layout_height="wrap_content"
         android:text="Delete" />
 
+    <ProgressBar
+        android:id="@+id/progressBarUpload"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
