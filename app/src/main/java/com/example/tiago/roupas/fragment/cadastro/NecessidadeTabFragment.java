@@ -88,7 +88,8 @@ public class NecessidadeTabFragment extends Fragment {
     }
 
     private void setDatabaseReference() {
-        this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades");
+        //this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades");
+        this.mDatabaseReference = this.mFirebaseDatabase.getReference("usuarios");
     }
 
     private void setFirebaseInstance() {
@@ -115,7 +116,7 @@ public class NecessidadeTabFragment extends Fragment {
 
                     //String uui = mDatabaseReference.push().getKey();
                     //String uui = account.getId().toString();
-                    String uui = currentUser.getUid();
+                    String uid = currentUser.getUid();
 
                     //mDatabaseReference.child( uui ).child("user_id").setValue( account.getId().toString() );
                     //mDatabaseReference.child( uui ).child("tipo").setValue( spinnerTipoRoupas.getSelectedItem().toString() );
@@ -126,7 +127,12 @@ public class NecessidadeTabFragment extends Fragment {
                                                       editTextDescricao.getText().toString().trim(),
                                                       editTextJustificativa.getText().toString().trim());
 
-                    mDatabaseReference.child( uui ).push().setValue( nec );
+                    mDatabaseReference.child( uid ).child("usuario").child("uui").setValue( uid );
+                    mDatabaseReference.child( uid ).child("usuario").child("nome").setValue( currentUser.getDisplayName() );
+                    mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
+                    mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
+
+                    mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
                     Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                     form.clear();

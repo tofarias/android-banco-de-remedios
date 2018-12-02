@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,8 +67,14 @@ public class NecessidadeTabFragment extends Fragment {
 
         this.recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerViewNecessidades);
 
-        if (this.recyclerView != null)
-            this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (this.recyclerView != null) {
+
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+            mLayoutManager.setReverseLayout(true);
+            mLayoutManager.setStackFromEnd(true);
+
+            this.recyclerView.setLayoutManager(mLayoutManager);
+        }
     }
 
     /*ChildEventListener childEventListener = new ChildEventListener() {
@@ -124,12 +131,15 @@ public class NecessidadeTabFragment extends Fragment {
 
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                 Necessidade necessidade = snapshot.getValue(Necessidade.class);
+                if( snapshot.getKey().contentEquals("necessidades") ){
 
-                necessidadeList.add(necessidade);
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
-                //Toast.makeText(getContext(), "Tipo: "+necessidade.getTipo(), Toast.LENGTH_SHORT).show();
+                        Necessidade necessidade = snapshot1.getValue(Necessidade.class);
 
+                        necessidadeList.add(necessidade);
+                    }
+                }
             }
 
             necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
@@ -157,7 +167,8 @@ public class NecessidadeTabFragment extends Fragment {
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
         String uuid = FirebaseAuth.getInstance().getUid();
 
-        this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + uuid);
+        //this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + uuid);
+        this.mDatabaseReference = this.mFirebaseDatabase.getReference("usuarios/" + uuid);
         //this.mDatabaseReference.addChildEventListener(childEventListener);
         this.mDatabaseReference.orderByChild("createdAt")
                                //.startAt("2018-11-30").endAt("2018-12-01")
