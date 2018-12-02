@@ -16,9 +16,7 @@ import com.example.tiago.roupas.R;
 
 public class DonativoTabFragment extends Fragment {
 
-    CheckBox checkBoxCamisa;
-    EditText editTextQCamiseta;
-
+    Spinner spinnerTipoRoupas;
 
     @Nullable
     @Override
@@ -32,23 +30,9 @@ public class DonativoTabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //getActivity().setTitle(R.string.nav_header_user);
 
-        this.checkBoxCamisa = (CheckBox) getActivity().findViewById(R.id.checkBoxCamisa);
-        this.checkBoxCamisa.setOnCheckedChangeListener(checkBoxCamisaOnCheckedChangeListener);
-
-        this.editTextQCamiseta = (EditText) getActivity().findViewById(R.id.editTextQCamiseta);
+        this.spinnerTipoRoupas = (Spinner) getActivity().findViewById(R.id.spinnerTipoRoupas);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.tipo_roupas, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.spinnerTipoRoupas.setAdapter(adapter);
     }
-
-    private CompoundButton.OnCheckedChangeListener checkBoxCamisaOnCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-            if( isChecked ){
-                editTextQCamiseta.setEnabled( true );
-                editTextQCamiseta.requestFocus();
-            }else{
-                editTextQCamiseta.setEnabled( false );
-                editTextQCamiseta.setText("");
-            }
-        }
-    };
 }

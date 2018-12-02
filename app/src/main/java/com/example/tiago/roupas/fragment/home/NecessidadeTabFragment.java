@@ -1,8 +1,10 @@
 package com.example.tiago.roupas.fragment.home;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +42,8 @@ public class NecessidadeTabFragment extends Fragment {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
 
+    private ProgressBar mProgressBar;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +55,8 @@ public class NecessidadeTabFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //getActivity().setTitle("Aguardando Doações");
+
+        mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBarNecessidade);
 
         this.setFirebaseInstance();
         this.setDatabaseReference();
@@ -127,6 +137,7 @@ public class NecessidadeTabFragment extends Fragment {
                         new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             }
 
+            mProgressBar.setVisibility(View.GONE);
         }
 
         @Override
@@ -158,7 +169,7 @@ public class NecessidadeTabFragment extends Fragment {
 
     public class NecessidadeHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewTitulo, textViewJustificativa, textViewDescricao, textViewCreatedAt;
+        public TextView textViewTitulo, textViewJustificativa, textViewDescricao, textViewCreatedAt, textViewAguardando;
 
         public NecessidadeHolder(@NonNull final View itemView) {
             super(itemView);
@@ -166,6 +177,7 @@ public class NecessidadeTabFragment extends Fragment {
             this.textViewTitulo        = itemView.findViewById(R.id.textViewTitulo);
             this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativa);
             this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAt);
+            this.textViewAguardando     = itemView.findViewById(R.id.textViewAguardando);
 
             itemView.setOnClickListener( itemViewOnClickListener );
         }
@@ -194,6 +206,7 @@ public class NecessidadeTabFragment extends Fragment {
             return new NecessidadeHolder(view);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onBindViewHolder(@NonNull NecessidadeHolder holder, int position) {
 
@@ -205,6 +218,7 @@ public class NecessidadeTabFragment extends Fragment {
             holder.textViewTitulo.setText( titulo );
             holder.textViewJustificativa.setText( justificativa );
             holder.textViewCreatedAt.setText( createdAt );
+            holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );
         }
 
         @Override
@@ -214,6 +228,21 @@ public class NecessidadeTabFragment extends Fragment {
 
         public void setMovieList(List<Necessidade> necessidadeList) {
             this.necessidadeList = necessidadeList;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.O)
+        private String calcularPeriodoAguardandoDonativo(String createdAt){
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            LocalDate dtAtual = LocalDate.now();
+            LocalDate dtCadastro = LocalDate.parse( createdAt, formatter );
+
+            String dias  = Long.toString( ChronoUnit.DAYS.between(dtCadastro, dtAtual) );
+            String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
+            String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
+
+            return anos + " anos, "+meses+" meses e "+dias+" dias";
         }
     }
 }

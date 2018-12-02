@@ -16,71 +16,11 @@
 
         <!-- TODO: Update blank fragment layout -->
 
-        <CheckBox
-            android:id="@+id/checkBoxCamisa"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Camisa / Camiseta"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTipoRoupa" />
-
-        <CheckBox
-            android:id="@+id/checkBoxBlazer"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Blazers / Terno"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxCamisa" />
-
-        <CheckBox
-            android:id="@+id/checkBoxBlusao"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Blusão / Suéter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxBlazer" />
-
-        <CheckBox
-            android:id="@+id/checkBoxCalcado"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Calçados (pares)"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxBlusao" />
-
-        <CheckBox
-            android:id="@+id/checkBoxCalca"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Calças"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxCalcado" />
-
-        <CheckBox
-            android:id="@+id/checkBoxCasaco"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Casacos / Jaquetas"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxCalca" />
-
         <TextView
             android:id="@+id/textViewTipoRoupa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Tipos:"
             android:textStyle="bold"
@@ -88,189 +28,47 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewTamanho"
+            android:id="@+id/textViewQuantidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
             android:layout_marginTop="8dp"
-            android:text="Tamanhos:"
+            android:layout_marginEnd="32dp"
+            android:text="Quantidade:"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewQuantidade2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="120dp"
-            android:layout_marginTop="8dp"
-            android:text="Quantidades:"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextQCamiseta"
-            android:enabled="false"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:digits="0123456789"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxCamisa"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTamanho" />
-
-        <EditText
-            android:id="@+id/editTextQBlazer"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:digits="0123456789"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxBlazer"
-            app:layout_constraintTop_toBottomOf="@+id/editTextQCamiseta" />
-
-        <EditText
-            android:id="@+id/editTextQBlusao"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:digits="0123456789"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxBlusao"
-            app:layout_constraintTop_toBottomOf="@+id/editTextQBlazer" />
-
-        <EditText
-            android:id="@+id/editTextQCalcado"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:digits="0123456789"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxCalcado"
-            app:layout_constraintTop_toBottomOf="@+id/editTextQBlusao" />
-
-        <EditText
-            android:id="@+id/editTextQCalca"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:digits="0123456789"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxCalca"
-            app:layout_constraintTop_toBottomOf="@+id/editTextQCalcado" />
-
-        <EditText
-            android:id="@+id/editTextQCasaco"
-            android:layout_width="45dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:digits="0123456789"
-            android:ems="10"
-            android:inputType="number"
-            android:maxLength="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkBoxCasaco"
-            app:layout_constraintTop_toBottomOf="@+id/editTextQCalca" />
-
-        <TextView
-            android:id="@+id/textViewDescricao"
-            android:layout_width="wrap_content"
-            android:layout_height="15dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Descrição:"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxCasaco" />
-
-        <EditText
-            android:id="@+id/editTextDescricao"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinnerTipoRoupas"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:gravity="left|top"
-            android:inputType="textMultiLine"
-            android:lines="3"
-            android:maxLength="100"
-            android:maxLines="3"
-            android:singleLine="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
-
-        <TextView
-            android:id="@+id/textViewCreatedAt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Justificativa:"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDescricao" />
-
-        <EditText
-            android:id="@+id/editTextJustificativa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:gravity="left|top"
-            android:inputType="textMultiLine"
-            android:lines="6"
-            android:maxLength="250"
-            android:maxLines="6"
-            android:singleLine="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTipoRoupa" />
 
         <Button
             android:id="@+id/buttonSalvar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Salvar"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextJustificativa" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="102dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuantidade" />
 
     </android.support.constraint.ConstraintLayout>
 
