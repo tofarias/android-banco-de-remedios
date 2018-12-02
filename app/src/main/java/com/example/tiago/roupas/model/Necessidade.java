@@ -1,11 +1,12 @@
 package com.example.tiago.roupas.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Necessidade {
+public class Necessidade implements Serializable {
 
     public String tipo;
     public String descricao;

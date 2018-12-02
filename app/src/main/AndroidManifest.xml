@@ -30,6 +30,7 @@
         </activity>
         <activity android:name="com.example.tiago.roupas.activity.LoginActivity" />
         <activity android:name="com.example.tiago.roupas.activity.TextoActivity"></activity>
+        <activity android:name="com.example.tiago.roupas.activity.DetalheNecessidadeActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

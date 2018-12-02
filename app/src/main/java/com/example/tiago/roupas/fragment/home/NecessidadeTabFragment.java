@@ -1,11 +1,13 @@
 package com.example.tiago.roupas.fragment.home;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.tiago.roupas.R;
+import com.example.tiago.roupas.activity.DetalheNecessidadeActivity;
+import com.example.tiago.roupas.activity.TextoActivity;
 import com.example.tiago.roupas.model.Necessidade;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -183,7 +187,19 @@ public class NecessidadeTabFragment extends Fragment {
 
         private View.OnClickListener itemViewOnClickListener = new View.OnClickListener() {
             @Override
-            public void onClick(View v) { }
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(),DetalheNecessidadeActivity.class);
+                intent.putExtra("tipo",((TextView) v.findViewById(R.id.textViewTipo)).getText());
+                intent.putExtra("justificativa",((TextView) v.findViewById(R.id.textViewJustificativa)).getText());
+                intent.putExtra("createdAt",((TextView) v.findViewById(R.id.textViewCreatedAt)).getText());
+
+                startActivity(intent);
+
+                /*FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, new DetalheNecessidadeFragment());
+                ft.commit();*/
+            }
         };
     }
 
