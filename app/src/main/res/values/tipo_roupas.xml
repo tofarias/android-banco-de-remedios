@@ -3,12 +3,13 @@
     <string-array name="tipo_roupas">
         <item>Selecione</item>
         <item>Bermuda / Short</item>
-        <item>Blazers / Terno</item>
+        <item>Blazer / Terno</item>
         <item>Blusão / Suéter</item>
-        <item>Calçados</item>
-        <item>Calças</item>
-        <item>Camisas / Camiseta</item>
-        <item>Casacos / Jaquetas</item>
+        <item>Calçado</item>
+        <item>Calça</item>
+        <item>Camisa / Camiseta</item>
+        <item>Casaco / Jaquetas</item>
+        <item>Frauda</item>
         <item>Lençol / Cobertor</item>
     </string-array>
 </resources>

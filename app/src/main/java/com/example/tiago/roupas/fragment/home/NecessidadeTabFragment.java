@@ -14,11 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.model.Necessidade;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -80,7 +79,7 @@ public class NecessidadeTabFragment extends Fragment {
 
                 necessidadeList.add(necessidade);
 
-                Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Tipo: "+necessidade.getTipo(), Toast.LENGTH_SHORT).show();
             }
 
             necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
@@ -125,7 +124,7 @@ public class NecessidadeTabFragment extends Fragment {
 
                 necessidadeList.add(necessidade);
 
-                //Toast.makeText(getContext(), "Titulo: "+necessidade.getTitulo(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Tipo: "+necessidade.getTipo(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -169,12 +168,12 @@ public class NecessidadeTabFragment extends Fragment {
 
     public class NecessidadeHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewTitulo, textViewJustificativa, textViewDescricao, textViewCreatedAt, textViewAguardando;
+        public TextView textViewTipo, textViewJustificativa, textViewDescricao, textViewCreatedAt, textViewAguardando;
 
         public NecessidadeHolder(@NonNull final View itemView) {
             super(itemView);
 
-            this.textViewTitulo        = itemView.findViewById(R.id.textViewTitulo);
+            this.textViewTipo        = itemView.findViewById(R.id.textViewTipo);
             this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativa);
             this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAt);
             this.textViewAguardando     = itemView.findViewById(R.id.textViewAguardando);
@@ -201,7 +200,7 @@ public class NecessidadeTabFragment extends Fragment {
         public NecessidadeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.home_item_necessidade,parent,false );
+                    .inflate(R.layout.item_home_necessidade,parent,false );
 
             return new NecessidadeHolder(view);
         }
@@ -210,12 +209,12 @@ public class NecessidadeTabFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull NecessidadeHolder holder, int position) {
 
-            String titulo        = this.necessidadeList.get(position).getTitulo();
+            String tipo        = this.necessidadeList.get(position).getTipo();
             String justificativa = this.necessidadeList.get(position).getJustificativa();
             String descricao     = this.necessidadeList.get(position).getDescricao();
             String createdAt     = this.necessidadeList.get(position).getCreatedAt();
 
-            holder.textViewTitulo.setText( titulo );
+            holder.textViewTipo.setText( tipo );
             holder.textViewJustificativa.setText( justificativa );
             holder.textViewCreatedAt.setText( createdAt );
             holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Necessidade {
 
-    public String titulo;
+    public String tipo;
     public String descricao;
     public String justificativa;
     public String createdAt;
@@ -17,20 +17,20 @@ public class Necessidade {
 
     }
 
-    public Necessidade(String titulo, String descricao, String justificativa) {
-        this.titulo = titulo;
+    public Necessidade(String tipo, String descricao, String justificativa) {
+        this.tipo = tipo;
         this.descricao = descricao;
         this.justificativa = justificativa;
 
         this.createdAt = "";
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getDescricao() {
@@ -71,7 +71,7 @@ public class Necessidade {
 
         HashMap<String, Object> result = new HashMap<>();
 
-        result.put("titulo", this.getTitulo());
+        result.put("tipo", this.getTipo());
         result.put("descricao", this.getDescricao());
         result.put("justificatica", this.getJustificativa());
         result.put("createdAt", this.getCreatedAt());

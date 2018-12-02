@@ -24,48 +24,50 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textViewTitulo"
-                android:layout_width="0dp"
-                android:layout_height="18dp"
-                android:layout_marginEnd="8dp"
+                android:id="@+id/textViewTipo"
+                android:layout_width="181dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:text="Título"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewCreatedAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="36dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
+                android:layout_width="171dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="CreatedAt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewJustificativa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="49dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
+                android:layout_marginBottom="8dp"
+                android:text="Justificativa"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
 
             <TextView
                 android:id="@+id/textViewAguardando"
-                android:layout_width="150dp"
+                android:layout_width="181dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="TextView"
+                android:layout_marginBottom="4dp"
+                android:text="Aguardando"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 

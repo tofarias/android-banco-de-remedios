@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class NecessidadeTabFragment extends Fragment {
 
-    EditText editTextTitulo, editTextDescricao, editTextJustificativa;
-    TextView textViewTitulo, textViewDescricao, textViewJustificativa;
+    EditText editTextTipo, editTextDescricao, editTextJustificativa;
+    TextView textViewTipo, textViewDescricao, textViewJustificativa;
     Button btnSalvar;
+    Spinner spinnerTipoRoupas;
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -48,12 +52,35 @@ public class NecessidadeTabFragment extends Fragment {
 
         this.setEditTexts();
         this.setTextViews();
+        this.setSpinnerTipoRoupas();
 
         this.setBtnSalvar();
 
-        this.editTextTitulo.requestFocus();
+        this.spinnerTipoRoupas.requestFocus();
+
+        /*this.spinnerTipoRoupas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(parent.getContext(),
+                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
 
         this.btnSalvar.setOnClickListener( this.btnSalvarOnClickListener );
+    }
+
+    private void setSpinnerTipoRoupas(){
+
+        this.spinnerTipoRoupas = (Spinner) getActivity().findViewById(R.id.spinnerTipoRoupas);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.tipo_roupas, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.spinnerTipoRoupas.setAdapter(adapter);
     }
 
     private void setAccount() {
@@ -91,11 +118,11 @@ public class NecessidadeTabFragment extends Fragment {
                     String uui = currentUser.getUid();
 
                     //mDatabaseReference.child( uui ).child("user_id").setValue( account.getId().toString() );
-                    //mDatabaseReference.child( uui ).child("titulo").setValue( editTextTitulo.getText().toString().trim() );
+                    //mDatabaseReference.child( uui ).child("tipo").setValue( spinnerTipoRoupas.getSelectedItem().toString() );
                     //mDatabaseReference.child( uui ).child("descricao").setValue( editTextDescricao.getText().toString().trim() );
                     //mDatabaseReference.child( uui ).child("justificativa").setValue( editTextJustificativa.getText().toString().trim() );
 
-                    Necessidade nec = new Necessidade(editTextTitulo.getText().toString().trim(),
+                    Necessidade nec = new Necessidade(spinnerTipoRoupas.getSelectedItem().toString(),
                                                       editTextDescricao.getText().toString().trim(),
                                                       editTextJustificativa.getText().toString().trim());
 
@@ -112,14 +139,14 @@ public class NecessidadeTabFragment extends Fragment {
     };
 
     private  void setTextViews(){
-        this.textViewTitulo        = (TextView) getActivity().findViewById(R.id.textViewTitulo);
+        this.textViewTipo        = (TextView) getActivity().findViewById(R.id.textViewTipo);
         this.textViewDescricao     = (TextView) getActivity().findViewById(R.id.textViewDescricao);
         this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewCreatedAt);
     }
 
     private void setEditTexts(){
         this.editTextDescricao     = (EditText) getActivity().findViewById(R.id.editTextDescricao);
-        this.editTextTitulo        = (EditText) getActivity().findViewById(R.id.editTextTitulo);
+        //this.editTextTipo        = (EditText) getActivity().findViewById(R.id.editTextTipo);
         this.editTextJustificativa = (EditText) getActivity().findViewById(R.id.editTextJustificativa);
     }
 
@@ -128,15 +155,15 @@ public class NecessidadeTabFragment extends Fragment {
         private boolean isValid(){
 
             Boolean isValid = true;
-            int textViewTituloMinSize        = 1;
+            int textViewTipoMinSize        = 1;
             int textViewDescricaoMinSize     = 1;
             int textViewJustificativaMinSize = 1;
 
-            if( editTextTitulo.getText().toString().trim().length() < textViewTituloMinSize ){
+            /*if( editTextTipo.getText().toString().trim().length() < textViewTipoMinSize ){
 
                 isValid = false;
-                editTextTitulo.requestFocus();
-                Toast.makeText(getContext(), textViewTitulo.getText()+" precisa ter pelo menos "+textViewTituloMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
+                editTextTipo.requestFocus();
+                Toast.makeText(getContext(), textViewTipo.getText()+" precisa ter pelo menos "+textViewTipoMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
 
             }else if( editTextDescricao.getText().toString().trim().length() < textViewDescricaoMinSize ){
 
@@ -149,13 +176,13 @@ public class NecessidadeTabFragment extends Fragment {
                 isValid = false;
                 editTextJustificativa.requestFocus();
                 Toast.makeText(getContext(), textViewJustificativa.getText()+" precisa ter pelo menos "+textViewJustificativaMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
-            }
+            }*/
 
             return isValid;
         }
 
         private void clear(){
-            editTextTitulo.setText("");
+            //editTextTipo.setText("");
             editTextJustificativa.setText("");
             editTextDescricao.setText("");
         }
