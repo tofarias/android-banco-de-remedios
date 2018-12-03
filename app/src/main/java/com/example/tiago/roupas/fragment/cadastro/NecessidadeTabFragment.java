@@ -1,12 +1,13 @@
 package com.example.tiago.roupas.fragment.cadastro;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,26 +59,47 @@ public class NecessidadeTabFragment extends Fragment {
 
         this.spinnerTipoRoupas.requestFocus();
 
-        /*this.spinnerTipoRoupas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(parent.getContext(),
-                        "OnItemSelectedListener : " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-
         this.btnSalvar.setOnClickListener( this.btnSalvarOnClickListener );
+    }
+
+    public void exit(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        // Setting Alert Dialog Title
+        alertDialogBuilder.setTitle("Confirm Exit..!!!");
+        // Icon Of Alert Dialog
+        //alertDialogBuilder.setIcon(R.drawable.question);
+        // Setting Alert Dialog Message
+        alertDialogBuilder.setMessage("Are you sure,You want to exit");
+        alertDialogBuilder.setCancelable(true);
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(getContext(),"You clicked over Yes",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getContext(),"You clicked over No",Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialogBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getContext(),"You clicked on Cancel",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void setSpinnerTipoRoupas(){
 
-        this.spinnerTipoRoupas = (Spinner) getActivity().findViewById(R.id.spinnerTipoRoupas);
+        this.spinnerTipoRoupas = (Spinner) getActivity().findViewById(R.id.spinnerTipoRoupasNecessidade);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.tipo_roupas, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.spinnerTipoRoupas.setAdapter(adapter);
@@ -105,41 +127,52 @@ public class NecessidadeTabFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            Form form = new Form();
+            final Form form = new Form();
 
             if( form.isValid() ){
 
-                try {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle("Salvar dados");
+                alertDialogBuilder.setMessage("Deseja realmente salvar os dados?");
+                alertDialogBuilder.setCancelable(true);
 
-                    FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+                alertDialogBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 
-                    //String uui = mDatabaseReference.push().getKey();
-                    //String uui = account.getId().toString();
-                    String uid = currentUser.getUid();
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
 
-                    //mDatabaseReference.child( uui ).child("user_id").setValue( account.getId().toString() );
-                    //mDatabaseReference.child( uui ).child("tipo").setValue( spinnerTipoRoupas.getSelectedItem().toString() );
-                    //mDatabaseReference.child( uui ).child("descricao").setValue( editTextDescricao.getText().toString().trim() );
-                    //mDatabaseReference.child( uui ).child("justificativa").setValue( editTextJustificativa.getText().toString().trim() );
+                        try {
 
-                    Necessidade nec = new Necessidade(spinnerTipoRoupas.getSelectedItem().toString(),
-                                                      editTextDescricao.getText().toString().trim(),
-                                                      editTextJustificativa.getText().toString().trim());
+                            FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+                            FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
 
-                    mDatabaseReference.child( uid ).child("usuario").child("uui").setValue( uid );
-                    mDatabaseReference.child( uid ).child("usuario").child("nome").setValue( currentUser.getDisplayName() );
-                    mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
-                    mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
+                            String uid = currentUser.getUid();
 
-                    mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
+                            Necessidade nec = new Necessidade(
+                                    spinnerTipoRoupas.getSelectedItem().toString(),
+                                    editTextDescricao.getText().toString().trim(),
+                                    editTextJustificativa.getText().toString().trim()
+                            );
 
-                    Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
-                    form.clear();
-                }catch (Exception e){
-                    Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
-                }
+                            mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
+                            Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
+                            form.clear();
+                        }catch (Exception e){
+                            Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(),"You clicked over No",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         }
     };
@@ -147,48 +180,44 @@ public class NecessidadeTabFragment extends Fragment {
     private  void setTextViews(){
         this.textViewTipo        = (TextView) getActivity().findViewById(R.id.textViewTipo);
         this.textViewDescricao     = (TextView) getActivity().findViewById(R.id.textViewDescricao);
-        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewCreatedAt);
+        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewJustificativa);
     }
 
     private void setEditTexts(){
         this.editTextDescricao     = (EditText) getActivity().findViewById(R.id.editTextDescricao);
-        //this.editTextTipo        = (EditText) getActivity().findViewById(R.id.editTextTipo);
         this.editTextJustificativa = (EditText) getActivity().findViewById(R.id.editTextJustificativa);
     }
 
     private class Form{
 
-        private boolean isValid(){
+        public boolean isValid(){
 
             Boolean isValid = true;
-            int textViewTipoMinSize        = 1;
             int textViewDescricaoMinSize     = 1;
             int textViewJustificativaMinSize = 1;
 
-            /*if( editTextTipo.getText().toString().trim().length() < textViewTipoMinSize ){
-
+            if( spinnerTipoRoupas.getSelectedItemId() == 0 ){
                 isValid = false;
-                editTextTipo.requestFocus();
-                Toast.makeText(getContext(), textViewTipo.getText()+" precisa ter pelo menos "+textViewTipoMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
-
+                spinnerTipoRoupas.requestFocus();
+                Toast.makeText(getContext(), "O campo Tipo precisa ser informado.", Toast.LENGTH_LONG).show();
             }else if( editTextDescricao.getText().toString().trim().length() < textViewDescricaoMinSize ){
 
                 isValid = false;
                 editTextDescricao.requestFocus();
-                Toast.makeText(getContext(), textViewDescricao.getText()+" precisa ter pelo menos "+textViewDescricaoMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "O campo "+textViewDescricao.getText()+" precisa ter pelo menos "+textViewDescricaoMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
 
             }else if( editTextJustificativa.getText().toString().trim().length() < textViewJustificativaMinSize ){
 
                 isValid = false;
                 editTextJustificativa.requestFocus();
-                Toast.makeText(getContext(), textViewJustificativa.getText()+" precisa ter pelo menos "+textViewJustificativaMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
-            }*/
+                Toast.makeText(getContext(), "O campo "+textViewJustificativa.getText()+" precisa ter pelo menos "+textViewJustificativaMinSize+" caractere(s).", Toast.LENGTH_LONG).show();
+            }
 
             return isValid;
         }
 
-        private void clear(){
-            //editTextTipo.setText("");
+        public void clear(){
+            spinnerTipoRoupas.setSelection(0);
             editTextJustificativa.setText("");
             editTextDescricao.setText("");
         }

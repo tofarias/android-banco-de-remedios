@@ -27,10 +27,10 @@
         android:layout_marginTop="8dp"
         android:text="Descrição:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRoupas" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRoupasNecessidade" />
 
     <Spinner
-        android:id="@+id/spinnerTipoRoupas"
+        android:id="@+id/spinnerTipoRoupasNecessidade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
 
     <TextView
-        android:id="@+id/textViewCreatedAt"
+        android:id="@+id/textViewJustificativa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -84,7 +84,7 @@
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewJustificativa" />
 
     <Button
         android:id="@+id/buttonSalvar"
