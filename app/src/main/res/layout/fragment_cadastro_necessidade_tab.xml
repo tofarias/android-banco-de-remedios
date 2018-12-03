@@ -88,7 +88,6 @@
 
     <Button
         android:id="@+id/buttonSalvar"
-        style="@android:style/Widget.Material.Button.Inset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

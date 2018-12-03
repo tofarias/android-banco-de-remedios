@@ -15,7 +15,7 @@
         tools:context=".fragment.cadastro.DonativoTabFragment">
 
         <TextView
-            android:id="@+id/textViewTipo"
+            android:id="@+id/textViewTipoDonativo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -31,10 +31,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTipoDonativo" />
 
         <TextView
-            android:id="@+id/textViewQuantidade"
+            android:id="@+id/textViewQuantidadeDonativo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -44,19 +44,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextQuantidade"
+            android:id="@+id/editTextQuantidadeDonativo"
             android:layout_width="77dp"
             android:layout_height="39dp"
             android:layout_marginEnd="8dp"
-            android:digits="123456789"
+            android:digits="0123456789"
             android:ems="10"
             android:inputType="number"
             android:maxLength="2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewQuantidade" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuantidadeDonativo" />
 
         <TextView
-            android:id="@+id/textViewDescricao"
+            android:id="@+id/textViewDescricaoDonativo"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRoupasDonativo" />
 
         <EditText
-            android:id="@+id/editTextDescricao"
+            android:id="@+id/editTextDescricaoDonativo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -81,20 +81,20 @@
             android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescricaoDonativo" />
 
         <TextView
-            android:id="@+id/textViewJustificativa"
+            android:id="@+id/textViewJustificativaDonativo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Justificativa:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextDescricao" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescricaoDonativo" />
 
         <EditText
-            android:id="@+id/editTextJustificativa"
+            android:id="@+id/editTextJustificativaDonativo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -109,19 +109,19 @@
             android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewJustificativa" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewJustificativaDonativo" />
 
         <Button
-            android:id="@+id/buttonSalvar"
+            android:id="@+id/buttonSalvarDonativo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="51dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="95dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginBottom="8dp"
             android:text="Salvar"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextJustificativa" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextJustificativaDonativo" />
 
     </android.support.constraint.ConstraintLayout>
 

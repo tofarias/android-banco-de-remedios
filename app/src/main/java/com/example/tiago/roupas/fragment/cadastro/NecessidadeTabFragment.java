@@ -128,6 +128,13 @@ public class NecessidadeTabFragment extends Fragment {
 
                             mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
+                            mDatabaseReference.child( uid ).child("usuario").child("uui").setValue( uid );
+                            mDatabaseReference.child( uid ).child("usuario").child("nome").setValue( currentUser.getDisplayName() );
+                            mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
+                            mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
+
+                            mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
+
                             Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                             form.clear();
 
@@ -140,7 +147,7 @@ public class NecessidadeTabFragment extends Fragment {
                 alertDialogBuilder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(),"You clicked over No",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),"You clicked over No",Toast.LENGTH_SHORT).show();
                     }
                 });
 
