@@ -258,8 +258,8 @@ public class NecessidadeTabFragment extends Fragment {
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         private String calcularPeriodoAguardandoDonativo(String createdAt){
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            return "dd/mm/yyyy";
+            /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             LocalDate dtAtual = LocalDate.now();
             LocalDate dtCadastro = LocalDate.parse( createdAt, formatter );
@@ -268,7 +268,7 @@ public class NecessidadeTabFragment extends Fragment {
             String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
             String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
 
-            return anos + " anos, "+meses+" meses e "+dias+" dias";
+            return anos + " anos, "+meses+" meses e "+dias+" dias";*/
         }
     }
 }

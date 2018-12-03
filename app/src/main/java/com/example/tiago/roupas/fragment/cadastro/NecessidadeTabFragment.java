@@ -28,11 +28,12 @@ public class NecessidadeTabFragment extends Fragment {
 
     EditText editTextTipo, editTextDescricao, editTextJustificativa;
     TextView textViewTipo, textViewDescricao, textViewJustificativa;
-    Button btnSalvar;
-    Spinner spinnerTipoRoupas;
+    Button   btnSalvar;
+    Spinner  spinnerTipoRoupas;
 
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
+    private FirebaseDatabase    mFirebaseDatabase;
+    private DatabaseReference   mDatabaseReference;
+    private FirebaseUser        currentUser;
     private GoogleSignInAccount account;
 
     @Nullable
@@ -50,6 +51,7 @@ public class NecessidadeTabFragment extends Fragment {
 
         this.setFirebaseInstance();
         this.setDatabaseReference();
+        this.setFirebaseCurrentUser();
 
         this.setEditTexts();
         this.setTextViews();
@@ -60,41 +62,6 @@ public class NecessidadeTabFragment extends Fragment {
         this.spinnerTipoRoupas.requestFocus();
 
         this.btnSalvar.setOnClickListener( this.btnSalvarOnClickListener );
-    }
-
-    public void exit(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        // Setting Alert Dialog Title
-        alertDialogBuilder.setTitle("Confirm Exit..!!!");
-        // Icon Of Alert Dialog
-        //alertDialogBuilder.setIcon(R.drawable.question);
-        // Setting Alert Dialog Message
-        alertDialogBuilder.setMessage("Are you sure,You want to exit");
-        alertDialogBuilder.setCancelable(true);
-
-        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(getContext(),"You clicked over Yes",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"You clicked over No",Toast.LENGTH_SHORT).show();
-            }
-        });
-        alertDialogBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"You clicked on Cancel",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
     }
 
     private void setSpinnerTipoRoupas(){
@@ -117,6 +84,11 @@ public class NecessidadeTabFragment extends Fragment {
     private void setFirebaseInstance() {
 
         this.mFirebaseDatabase = FirebaseDatabase.getInstance();
+    }
+
+    private void setFirebaseCurrentUser(){
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        this.currentUser = mFirebaseAuth.getCurrentUser();
     }
 
     private void setBtnSalvar() {
@@ -149,15 +121,16 @@ public class NecessidadeTabFragment extends Fragment {
                             String uid = currentUser.getUid();
 
                             Necessidade nec = new Necessidade(
-                                    spinnerTipoRoupas.getSelectedItem().toString(),
-                                    editTextDescricao.getText().toString().trim(),
-                                    editTextJustificativa.getText().toString().trim()
-                            );
+                                                                spinnerTipoRoupas.getSelectedItem().toString(),
+                                                                editTextDescricao.getText().toString().trim(),
+                                                                editTextJustificativa.getText().toString().trim()
+                                                        );
 
                             mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
                             Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                             form.clear();
+
                         }catch (Exception e){
                             Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
                         }

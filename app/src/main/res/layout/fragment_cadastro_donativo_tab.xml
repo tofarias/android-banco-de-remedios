@@ -14,61 +14,114 @@
         android:layout_height="match_parent"
         tools:context=".fragment.cadastro.DonativoTabFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-
         <TextView
-            android:id="@+id/textViewTipoRoupa"
+            android:id="@+id/textViewTipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Tipos:"
-            android:textStyle="bold"
+            android:text="Tipo:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinnerTipoRoupasDonativo"
+            android:layout_width="273dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
 
         <TextView
             android:id="@+id/textViewQuantidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
             android:text="Quantidade:"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/spinnerTipoRoupas"
-            android:layout_width="250dp"
+        <EditText
+            android:id="@+id/editTextQuantidade"
+            android:layout_width="77dp"
+            android:layout_height="39dp"
+            android:layout_marginEnd="8dp"
+            android:digits="123456789"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewQuantidade" />
+
+        <TextView
+            android:id="@+id/textViewDescricao"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Descrição:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerTipoRoupasDonativo" />
+
+        <EditText
+            android:id="@+id/editTextDescricao"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:gravity="left|top"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:maxLength="100"
+            android:maxLines="3"
+            android:singleLine="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTipoRoupa" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
+
+        <TextView
+            android:id="@+id/textViewJustificativa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Justificativa:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescricao" />
+
+        <EditText
+            android:id="@+id/editTextJustificativa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:gravity="left|top"
+            android:inputType="textMultiLine"
+            android:lines="6"
+            android:maxLength="250"
+            android:maxLines="6"
+            android:singleLine="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewJustificativa" />
 
         <Button
             android:id="@+id/buttonSalvar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="95dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:text="Salvar"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="102dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewQuantidade" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextJustificativa" />
 
     </android.support.constraint.ConstraintLayout>
 
