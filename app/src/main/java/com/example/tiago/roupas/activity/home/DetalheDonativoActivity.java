@@ -1,4 +1,4 @@
-package com.example.tiago.roupas.activity;
+package com.example.tiago.roupas.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +8,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
+import com.example.tiago.roupas.activity.MainActivity;
 
-public class DetalheNecessidadeActivity extends AppCompatActivity {
+public class DetalheDonativoActivity extends AppCompatActivity {
 
     private TextView textViewTipo, textViewJustificativa, textViewDescricao, textViewCreatedAt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_necessidade_detalhe);
+        setContentView(R.layout.activity_home_donativo_detalhe);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

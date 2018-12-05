@@ -17,9 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.tiago.roupas.R;
-import com.example.tiago.roupas.activity.DetalheNecessidadeActivity;
+import com.example.tiago.roupas.activity.home.DetalheDonativoActivity;
 import com.example.tiago.roupas.model.Donativo;
-import com.example.tiago.roupas.model.Necessidade;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -194,7 +193,7 @@ public class DonativoTabFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getContext(),DetalheNecessidadeActivity.class);
+                Intent intent = new Intent(getContext(),DetalheDonativoActivity.class);
                 intent.putExtra("tipo",((TextView) v.findViewById(R.id.textViewTipoDonativo)).getText());
                 intent.putExtra("justificativa",((TextView) v.findViewById(R.id.textViewJustificativaDonativo)).getText());
                 intent.putExtra("createdAt",((TextView) v.findViewById(R.id.textViewCreatedAtDonativo)).getText());
