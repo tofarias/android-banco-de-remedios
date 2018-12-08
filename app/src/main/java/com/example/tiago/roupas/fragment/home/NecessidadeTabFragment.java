@@ -241,7 +241,17 @@ public class NecessidadeTabFragment extends Fragment {
             String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
             String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
 
-            return "Há "+dias+" dias";
+            String textoRetorno = "";
+
+            if( ChronoUnit.DAYS.between(dtCadastro, dtAtual) <= 31 ){
+                textoRetorno = "Há "+dias+" dias";
+            }else if( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) <= 12  ){
+                textoRetorno = "Há "+meses+" meses";
+            }else{
+                textoRetorno = "Há "+ChronoUnit.YEARS.between(dtCadastro, dtAtual)+" anos";
+            }
+
+            return textoRetorno;
         }
     }
 }

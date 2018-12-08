@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.activity.MainActivity;
@@ -23,8 +26,7 @@ public class DetalheNecessidadeActivity extends AppCompatActivity {
     private TextView textViewTipo, textViewJustificativa, textViewDescricao;
     private TextView textViewCreatedAt, textViewUsuario;
 
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
+    private Button btnPossoAjudar;
 
     Usuario usuario;
 
@@ -45,9 +47,21 @@ public class DetalheNecessidadeActivity extends AppCompatActivity {
         this.textViewDescricao = (TextView) (findViewById(R.id.textViewDescricao));
         this.textViewUsuario = (TextView) (findViewById(R.id.textViewUsuario));
 
+        this.btnPossoAjudar = (Button)(findViewById(R.id.buttonPossoAjudar));
+        this.btnPossoAjudar.setOnClickListener( btnPossoAjudarOnClickListener );
+
         this.setDadosNecessidade(necId);
         this.setDadosUsuario(necId);
     }
+
+    private View.OnClickListener btnPossoAjudarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Toast.makeText(DetalheNecessidadeActivity.this, "Foi enviado um e-mail para o usuário "+textViewUsuario.getText()+" informado seu interesse em realizar a doação.",
+                    Toast.LENGTH_LONG).show();
+        }
+    };
 
     private void setDadosNecessidade(String necId) {
 
