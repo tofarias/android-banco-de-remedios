@@ -1,16 +1,23 @@
 package com.example.tiago.roupas.fragment.cadastro;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +26,19 @@ import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.model.Necessidade;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+
+import static android.app.Activity.RESULT_OK;
 
 public class NecessidadeTabFragment extends Fragment {
 
@@ -35,6 +51,14 @@ public class NecessidadeTabFragment extends Fragment {
     private DatabaseReference   mDatabaseReference;
     private FirebaseUser        currentUser;
     private GoogleSignInAccount account;
+
+    private Button btnUpload, btnDeletar;
+    private ImageView imageViewFoto;
+    private FirebaseStorage mStorage;
+    private StorageReference mStorageReference;
+    private static final String storageURL = "gs://doar-roupas-75d0e.appspot.com";
+
+    ProgressBar mProgressBarH;
 
     @Nullable
     @Override
@@ -62,6 +86,87 @@ public class NecessidadeTabFragment extends Fragment {
         this.spinnerTipoRoupas.requestFocus();
 
         this.btnSalvar.setOnClickListener( this.btnSalvarOnClickListener );
+
+        this.mStorage = FirebaseStorage.getInstance();
+        this.mStorageReference = this.mStorage.getReferenceFromUrl(storageURL);
+
+        this.btnUpload = (Button) getActivity().findViewById(R.id.btnUpload);
+        this.btnUpload.setOnClickListener(btnUploadOnClickListener);
+
+        //this.btnDeletar = (Button) getActivity().findViewById(R.id.btnDeletar);
+        //this.btnDeletar.setOnClickListener(btnDeleteOnClickListener);
+
+        this.imageViewFoto = (ImageView) getActivity().findViewById(R.id.imageViewFoto);
+
+        mProgressBarH = (ProgressBar) getActivity().findViewById(R.id.progressBarHorizontal);
+        mProgressBarH.setVisibility(View.GONE);
+    }
+
+    private View.OnClickListener btnUploadOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            selecionarFoto();
+        }
+    };
+
+    private void selecionarFoto(){
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+
+        startActivityForResult(Intent.createChooser(intent,"Selecionar Foto"), 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if( resultCode == RESULT_OK && requestCode == 1){
+
+            Uri imagemSelecionada = data.getData();
+            this.imageViewFoto.setImageURI(imagemSelecionada);
+            //uploadFoto();
+        }
+    }
+
+    private void uploadFoto(){
+
+        Bitmap bitmap = ((BitmapDrawable) this.imageViewFoto.getDrawable()).getBitmap();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+
+        byte[] imagem = outputStream.toByteArray();
+
+        StorageReference imagemReference = this.mStorageReference.child("imagem").child("img-001.jpg");
+        UploadTask uploadTask = imagemReference.putBytes(imagem);
+
+        uploadTask.addOnProgressListener(getActivity(), new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                double progress = (100.0 * (taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
+
+                Toast.makeText(getContext(), "Aguarde, fazendo upload da imagem.", Toast.LENGTH_SHORT).show();
+
+                int currentprogress = (int) progress;
+
+                mProgressBarH.setVisibility(View.VISIBLE);
+                mProgressBarH.setProgress(currentprogress);
+
+                Log.i("mProgressBarH", Integer.toString(currentprogress) );
+            }
+        });
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                mProgressBarH.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Upload realizado com sucesso", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void setSpinnerTipoRoupas(){
@@ -133,7 +238,9 @@ public class NecessidadeTabFragment extends Fragment {
                             mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
                             mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
 
-                            Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
+                            uploadFoto();
+
+                            //Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                             form.clear();
 
                         }catch (Exception e){
