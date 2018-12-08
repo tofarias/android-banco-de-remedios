@@ -153,9 +153,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_user:
                 fragment = new FragmentUsuario();
                 break;
-            case R.id.nav_medicine:
+            /*case R.id.nav_medicine:
                 fragment = new FragmentMedicamento();
-                break;
+                break;*/
             case R.id.nav_notificacoes:
                 fragment = new FragmentNotificacao();
                 break;

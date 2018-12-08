@@ -16,10 +16,10 @@
             android:id="@+id/nav_user"
             android:icon="@drawable/ic_baseline_person_24px"
             android:title="@string/nav_header_user" />
-        <item
+        <!--<item
             android:id="@+id/nav_medicine"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/nav_header_medicine" />
+            android:title="@string/nav_header_medicine" />-->
         <item
             android:id="@+id/nav_notificacoes"
             android:icon="@drawable/ic_baseline_sms_failed_24px"
