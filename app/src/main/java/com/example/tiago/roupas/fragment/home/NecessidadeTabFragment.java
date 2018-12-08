@@ -122,8 +122,10 @@ public class NecessidadeTabFragment extends Fragment {
 
                         for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
 
-                            Necessidade necessidade = snapshot2.getValue(Necessidade.class);
+                            String id = snapshot.getKey().toString()+"/necessidades/"+snapshot2.getKey().toString();
 
+                            Necessidade necessidade = snapshot2.getValue(Necessidade.class);
+                            necessidade.setId(id);
                             necessidadeList.add(necessidade);
                         }
                     }
@@ -157,16 +159,16 @@ public class NecessidadeTabFragment extends Fragment {
     public class NecessidadeHolder extends RecyclerView.ViewHolder{
 
         private TextView textViewTipo, textViewJustificativa, textViewDescricao;
-        private TextView textViewUserid, textViewCreatedAt, textViewAguardando;
+        private TextView textViewNecIdN, textViewCreatedAt, textViewAguardando;
 
         public NecessidadeHolder(@NonNull final View itemView) {
             super(itemView);
 
             this.textViewTipo          = itemView.findViewById(R.id.textViewTipoN);
-            this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativaN);
-            this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAtN);
+            this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativa);
+            this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAt);
             this.textViewAguardando    = itemView.findViewById(R.id.textViewAguardandoN);
-            this.textViewUserid        = itemView.findViewById(R.id.textViewUserIdN);
+            this.textViewNecIdN        = itemView.findViewById(R.id.textViewNecIdN);
 
             itemView.setOnClickListener( itemViewOnClickListener );
         }
@@ -176,7 +178,7 @@ public class NecessidadeTabFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getContext(),DetalheNecessidadeActivity.class);
-                intent.putExtra("userId",((TextView) v.findViewById(R.id.textViewUserIdN)).getText());
+                intent.putExtra("necId",((TextView) v.findViewById(R.id.textViewNecIdN)).getText());
 
                 startActivity(intent);
             }
@@ -209,13 +211,13 @@ public class NecessidadeTabFragment extends Fragment {
             String justificativa = this.necessidadeList.get(position).getJustificativa();
             String descricao     = this.necessidadeList.get(position).getDescricao();
             String createdAt     = this.necessidadeList.get(position).getCreatedAt();
-            String uid           = this.necessidadeList.get(position).userId;
+            String id           = this.necessidadeList.get(position).getId();
 
             holder.textViewTipo.setText( tipo );
             holder.textViewJustificativa.setText( justificativa );
             holder.textViewCreatedAt.setText( createdAt );
             holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );
-            holder.textViewUserid.setText( uid );
+            holder.textViewNecIdN.setText( id );
         }
 
         @Override
@@ -239,7 +241,7 @@ public class NecessidadeTabFragment extends Fragment {
             String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
             String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
 
-            return anos + " anos, "+meses+" meses e "+dias+" dias";
+            return "Há "+dias+" dias";
         }
     }
 }

@@ -10,7 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/textViewTipoN"
+        android:id="@+id/textViewTipo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTipoN" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
 
     <EditText
         android:id="@+id/editTextDescricao"
@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
 
     <TextView
-        android:id="@+id/textViewJustificativaN"
+        android:id="@+id/textViewJustificativa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewJustificativaN" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewJustificativa" />
 
     <Button
         android:id="@+id/buttonSalvar"

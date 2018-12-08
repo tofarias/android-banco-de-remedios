@@ -123,8 +123,7 @@ public class NecessidadeTabFragment extends Fragment {
                             Necessidade nec = new Necessidade(
                                                                 spinnerTipoRoupas.getSelectedItem().toString(),
                                                                 editTextDescricao.getText().toString().trim(),
-                                                                editTextJustificativa.getText().toString().trim(),
-                                                                currentUser.getUid()
+                                                                editTextJustificativa.getText().toString().trim()
                                                         );
 
                             mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
@@ -157,9 +156,9 @@ public class NecessidadeTabFragment extends Fragment {
     };
 
     private  void setTextViews(){
-        this.textViewTipo        = (TextView) getActivity().findViewById(R.id.textViewTipoN);
+        this.textViewTipo        = (TextView) getActivity().findViewById(R.id.textViewTipo);
         this.textViewDescricao     = (TextView) getActivity().findViewById(R.id.textViewDescricao);
-        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewJustificativaN);
+        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewJustificativa);
     }
 
     private void setEditTexts(){

@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if( (this.account != null) ) {
 
             View headerView = navigationView.getHeaderView(0);
-            TextView textViewUsuario = (TextView) headerView.findViewById(R.id.textViewUsuario);
+            TextView textViewUsuario = (TextView) headerView.findViewById(R.id.textViewUsuarioLabel);
             TextView textViewEmail = (TextView) headerView.findViewById(R.id.textViewEmail);
             ImageView imageViewUsuario = (ImageView) headerView.findViewById(R.id.imageViewUsuario);
 

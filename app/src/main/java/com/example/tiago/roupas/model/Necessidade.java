@@ -8,31 +8,30 @@ import java.util.Map;
 
 public class Necessidade implements Serializable {
 
+    public String id;
     public String tipo;
     public String descricao;
     public String justificativa;
     public String createdAt;
-    public String userId;
 
     public Necessidade()
     {
 
     }
 
-    public Necessidade(String tipo, String descricao, String justificativa, String userId) {
+    public Necessidade(String tipo, String descricao, String justificativa) {
         this.tipo = tipo;
         this.descricao = descricao;
         this.justificativa = justificativa;
-        this.userId = userId;
         this.createdAt = "";
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTipo() {
@@ -81,11 +80,11 @@ public class Necessidade implements Serializable {
 
         HashMap<String, Object> result = new HashMap<>();
 
+        result.put("id", this.getId());
         result.put("tipo", this.getTipo());
         result.put("descricao", this.getDescricao());
         result.put("justificatica", this.getJustificativa());
         result.put("createdAt", this.getCreatedAt());
-        result.put("userId", this.getUserId());
 
         return result;
     }

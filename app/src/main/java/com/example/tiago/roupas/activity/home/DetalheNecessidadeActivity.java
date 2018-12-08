@@ -6,13 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.activity.MainActivity;
+import com.example.tiago.roupas.model.Necessidade;
 import com.example.tiago.roupas.model.Usuario;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DetalheNecessidadeActivity extends AppCompatActivity {
 
     private TextView textViewTipo, textViewJustificativa, textViewDescricao;
-    private TextView textViewCreatedAt, textViewUid;
+    private TextView textViewCreatedAt, textViewUsuario;
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -39,50 +37,56 @@ public class DetalheNecessidadeActivity extends AppCompatActivity {
 
         //this.setFirebaseInstance();
         //this.setDatabaseReference();
+        String necId = getIntent().getStringExtra("necId");
 
-        String tipo = getIntent().getStringExtra("tipo");
-        String justificativa = getIntent().getStringExtra("justificativa");
-        String createdAt = getIntent().getStringExtra("createdAt");
-        String uid = getIntent().getStringExtra("uid");
+        this.textViewTipo = (TextView) (findViewById(R.id.textViewTipo));
+        this.textViewJustificativa = (TextView) (findViewById(R.id.textViewJustificativa));
+        this.textViewCreatedAt = (TextView) (findViewById(R.id.textViewCreatedAt));
+        this.textViewDescricao = (TextView) (findViewById(R.id.textViewDescricao));
+        this.textViewUsuario = (TextView) (findViewById(R.id.textViewUsuario));
 
-        Toast.makeText(this, tipo, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, justificativa, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, createdAt, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, uid, Toast.LENGTH_SHORT).show();
-
-
-        this.textViewTipo = (TextView) (findViewById(R.id.textViewTipoN));
-        this.textViewJustificativa = (TextView) (findViewById(R.id.textViewJustificativaN));
-        this.textViewCreatedAt = (TextView) (findViewById(R.id.textViewCreatedAtN));
-        this.textViewUid = (TextView) (findViewById(R.id.textViewUid));
-
-        this.textViewTipo.setText( tipo );
-        this.textViewJustificativa.setText( justificativa );
-        this.textViewCreatedAt.setText( createdAt );
-        this.textViewUid.setText( uid );
-
-
-
-        this.setDadosUsuario(uid);
-
-
+        this.setDadosNecessidade(necId);
+        this.setDadosUsuario(necId);
     }
 
-    private void setDadosUsuario(String userId) {
+    private void setDadosNecessidade(String necId) {
 
-        Query query = FirebaseDatabase.getInstance().getReference("usuarios/"+userId+"/usuario");
+        Query query = FirebaseDatabase.getInstance().getReference("usuarios/"+necId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+                if( dataSnapshot.exists() ){
+
+                    Necessidade necessidade = dataSnapshot.getValue(Necessidade.class);
+
+                    textViewTipo.setText( necessidade.tipo );
+                    textViewJustificativa.setText( necessidade.justificativa );
+                    textViewDescricao.setText( necessidade.descricao );
+                    textViewCreatedAt.setText( necessidade.getCreatedAt() );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setDadosUsuario(String necId) {
+
+        Query query = FirebaseDatabase.getInstance().getReference("usuarios/"+necId)
+                                      .getRef().getParent().getParent().child("usuario");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if( dataSnapshot.exists() ){
 
-                    usuario = dataSnapshot.getValue(Usuario.class);
+                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
 
-
+                    textViewUsuario.setText( usuario.nome );
                 }
 
             }
