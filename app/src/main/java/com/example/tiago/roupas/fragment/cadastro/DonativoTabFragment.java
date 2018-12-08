@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.tiago.roupas.R;
 import com.example.tiago.roupas.model.Donativo;
-import com.example.tiago.roupas.model.Necessidade;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,7 +98,7 @@ public class DonativoTabFragment extends Fragment {
 
                             mDatabaseReference.child( uid ).child("donativos").push().setValue( don );
 
-                            mDatabaseReference.child( uid ).child("usuario").child("uui").setValue( uid );
+                            mDatabaseReference.child( uid ).child("usuario").child("uid").setValue( uid );
                             mDatabaseReference.child( uid ).child("usuario").child("nome").setValue( getFirebaseCurrentUser().getDisplayName() );
                             mDatabaseReference.child( uid ).child("usuario").child("email").setValue( getFirebaseCurrentUser().getEmail() );
                             mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( getFirebaseCurrentUser().getPhotoUrl().toString() );

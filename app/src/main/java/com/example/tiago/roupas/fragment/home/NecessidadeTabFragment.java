@@ -23,21 +23,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NecessidadeTabFragment extends Fragment {
 
     List<Necessidade> necessidadeList = new ArrayList<>();
+
     NecessidadeAdapter necessidadeAdapter;
     RecyclerView recyclerView;
-
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabaseReference;
 
     private ProgressBar mProgressBar;
 
@@ -55,7 +56,6 @@ public class NecessidadeTabFragment extends Fragment {
 
         mProgressBar = (ProgressBar) getActivity().findViewById(R.id.progressBarNecessidade);
 
-        this.setFirebaseInstance();
         this.setDatabaseReference();
 
         this.recyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerViewNecessidades);
@@ -69,51 +69,6 @@ public class NecessidadeTabFragment extends Fragment {
             this.recyclerView.setLayoutManager(mLayoutManager);
         }
     }
-
-    /*ChildEventListener childEventListener = new ChildEventListener() {
-        @Override
-        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-            FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                Necessidade necessidade = snapshot.getValue(Necessidade.class);
-
-                necessidadeList.add(necessidade);
-
-                Toast.makeText(getContext(), "Tipo: "+necessidade.getTipo(), Toast.LENGTH_SHORT).show();
-            }
-
-            necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
-
-            recyclerView.setAdapter(necessidadeAdapter);
-            recyclerView.addItemDecoration(
-                    new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-        }
-
-        @Override
-        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-        }
-
-        @Override
-        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-        }
-
-        @Override
-        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-        }
-    };*/
 
     private ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
@@ -150,41 +105,68 @@ public class NecessidadeTabFragment extends Fragment {
         public void onCancelled(@NonNull DatabaseError databaseError) {
 
         }
-
-
     };
 
     private void setDatabaseReference() {
 
-        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
-        String uuid = FirebaseAuth.getInstance().getUid();
+        Query query = FirebaseDatabase.getInstance().getReference("usuarios/").orderByChild("necessidades");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    if( snapshot.child("necessidades").exists() ){
+
+                        DataSnapshot snapshot1 = snapshot.child("necessidades");
+
+                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+
+                            Necessidade necessidade = snapshot2.getValue(Necessidade.class);
+
+                            necessidadeList.add(necessidade);
+                        }
+                    }
+                }
+                necessidadeAdapter = new NecessidadeAdapter(necessidadeList);
+
+                if (recyclerView != null) {
+                    recyclerView.setAdapter(necessidadeAdapter);
+                    recyclerView.addItemDecoration(
+                            new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+                }
+
+                mProgressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //this.mDatabaseReference = this.mFirebaseDatabase.getReference("necessidades/" + uuid);
-        this.mDatabaseReference = this.mFirebaseDatabase.getReference("usuarios/" + uuid);
+        /*this.mDatabaseReference = this.mFirebaseDatabase.getReference("usuarios/");
         //this.mDatabaseReference.addChildEventListener(childEventListener);
         this.mDatabaseReference.orderByChild("createdAt")
                                //.startAt("2018-11-30").endAt("2018-12-01")
                                //.limitToLast(4)
-                               .addListenerForSingleValueEvent(valueEventListener);
-    }
-
-    private void setFirebaseInstance() {
-
-        this.mFirebaseDatabase = FirebaseDatabase.getInstance();
+                               .addListenerForSingleValueEvent(valueEventListener);*/
     }
 
     public class NecessidadeHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewTipo, textViewJustificativa, textViewDescricao, textViewCreatedAt, textViewAguardando;
+        private TextView textViewTipo, textViewJustificativa, textViewDescricao;
+        private TextView textViewUserid, textViewCreatedAt, textViewAguardando;
 
         public NecessidadeHolder(@NonNull final View itemView) {
             super(itemView);
 
-            this.textViewTipo        = itemView.findViewById(R.id.textViewTipo);
-            this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativa);
-            this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAt);
-            this.textViewAguardando     = itemView.findViewById(R.id.textViewAguardando);
+            this.textViewTipo          = itemView.findViewById(R.id.textViewTipoN);
+            this.textViewJustificativa = itemView.findViewById(R.id.textViewJustificativaN);
+            this.textViewCreatedAt     = itemView.findViewById(R.id.textViewCreatedAtN);
+            this.textViewAguardando    = itemView.findViewById(R.id.textViewAguardandoN);
+            this.textViewUserid        = itemView.findViewById(R.id.textViewUserIdN);
 
             itemView.setOnClickListener( itemViewOnClickListener );
         }
@@ -194,15 +176,9 @@ public class NecessidadeTabFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(getContext(),DetalheNecessidadeActivity.class);
-                intent.putExtra("tipo",((TextView) v.findViewById(R.id.textViewTipo)).getText());
-                intent.putExtra("justificativa",((TextView) v.findViewById(R.id.textViewJustificativa)).getText());
-                intent.putExtra("createdAt",((TextView) v.findViewById(R.id.textViewCreatedAt)).getText());
+                intent.putExtra("userId",((TextView) v.findViewById(R.id.textViewUserIdN)).getText());
 
                 startActivity(intent);
-
-                /*FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, new DetalheNecessidadeFragment());
-                ft.commit();*/
             }
         };
     }
@@ -229,15 +205,17 @@ public class NecessidadeTabFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull NecessidadeHolder holder, int position) {
 
-            String tipo        = this.necessidadeList.get(position).getTipo();
+            String tipo          = this.necessidadeList.get(position).getTipo();
             String justificativa = this.necessidadeList.get(position).getJustificativa();
             String descricao     = this.necessidadeList.get(position).getDescricao();
             String createdAt     = this.necessidadeList.get(position).getCreatedAt();
+            String uid           = this.necessidadeList.get(position).userId;
 
             holder.textViewTipo.setText( tipo );
             holder.textViewJustificativa.setText( justificativa );
             holder.textViewCreatedAt.setText( createdAt );
             holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );
+            holder.textViewUserid.setText( uid );
         }
 
         @Override
@@ -251,8 +229,8 @@ public class NecessidadeTabFragment extends Fragment {
 
         @RequiresApi(api = Build.VERSION_CODES.O)
         private String calcularPeriodoAguardandoDonativo(String createdAt){
-            return "dd/mm/yyyy";
-            /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             LocalDate dtAtual = LocalDate.now();
             LocalDate dtCadastro = LocalDate.parse( createdAt, formatter );
@@ -261,7 +239,7 @@ public class NecessidadeTabFragment extends Fragment {
             String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
             String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
 
-            return anos + " anos, "+meses+" meses e "+dias+" dias";*/
+            return anos + " anos, "+meses+" meses e "+dias+" dias";
         }
     }
 }

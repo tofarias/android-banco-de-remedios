@@ -123,17 +123,16 @@ public class NecessidadeTabFragment extends Fragment {
                             Necessidade nec = new Necessidade(
                                                                 spinnerTipoRoupas.getSelectedItem().toString(),
                                                                 editTextDescricao.getText().toString().trim(),
-                                                                editTextJustificativa.getText().toString().trim()
+                                                                editTextJustificativa.getText().toString().trim(),
+                                                                currentUser.getUid()
                                                         );
 
                             mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
-                            mDatabaseReference.child( uid ).child("usuario").child("uui").setValue( uid );
+                            mDatabaseReference.child( uid ).child("usuario").child("id").setValue( uid );
                             mDatabaseReference.child( uid ).child("usuario").child("nome").setValue( currentUser.getDisplayName() );
                             mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
                             mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
-
-                            mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
                             Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                             form.clear();
@@ -158,9 +157,9 @@ public class NecessidadeTabFragment extends Fragment {
     };
 
     private  void setTextViews(){
-        this.textViewTipo        = (TextView) getActivity().findViewById(R.id.textViewTipo);
+        this.textViewTipo        = (TextView) getActivity().findViewById(R.id.textViewTipoN);
         this.textViewDescricao     = (TextView) getActivity().findViewById(R.id.textViewDescricao);
-        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewJustificativa);
+        this.textViewJustificativa = (TextView) getActivity().findViewById(R.id.textViewJustificativaN);
     }
 
     private void setEditTexts(){

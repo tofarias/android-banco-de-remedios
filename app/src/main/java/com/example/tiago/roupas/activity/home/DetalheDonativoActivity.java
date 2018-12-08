@@ -30,9 +30,9 @@ public class DetalheDonativoActivity extends AppCompatActivity {
         Toast.makeText(this, createdAt, Toast.LENGTH_SHORT).show();
 
 
-        this.textViewTipo = (TextView) (findViewById(R.id.textViewTipo));
-        this.textViewJustificativa = (TextView) (findViewById(R.id.textViewJustificativa));
-        this.textViewCreatedAt = (TextView) (findViewById(R.id.textViewCreatedAt));
+        this.textViewTipo = (TextView) (findViewById(R.id.textViewTipoN));
+        this.textViewJustificativa = (TextView) (findViewById(R.id.textViewJustificativaN));
+        this.textViewCreatedAt = (TextView) (findViewById(R.id.textViewCreatedAtN));
 
         this.textViewTipo.setText( tipo );
         this.textViewJustificativa.setText( justificativa );

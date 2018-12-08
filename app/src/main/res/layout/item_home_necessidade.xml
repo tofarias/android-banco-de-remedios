@@ -24,7 +24,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textViewTipo"
+                android:id="@+id/textViewTipoN"
                 android:layout_width="181dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewCreatedAt"
+                android:id="@+id/textViewCreatedAtN"
                 android:layout_width="171dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewJustificativa"
+                android:id="@+id/textViewJustificativaN"
                 android:layout_width="150dp"
                 android:layout_height="49dp"
                 android:layout_marginStart="8dp"
@@ -54,10 +54,10 @@
                 android:text="Justificativa"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTipoN" />
 
             <TextView
-                android:id="@+id/textViewAguardando"
+                android:id="@+id/textViewAguardandoN"
                 android:layout_width="181dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -66,7 +66,16 @@
                 android:text="Aguardando"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAtN" />
+
+            <TextView
+                android:id="@+id/textViewUserIdN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="userId"
+                android:visibility="gone"
+                tools:layout_editor_absoluteX="200dp"
+                tools:layout_editor_absoluteY="70dp" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

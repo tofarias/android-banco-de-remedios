@@ -12,18 +12,27 @@ public class Necessidade implements Serializable {
     public String descricao;
     public String justificativa;
     public String createdAt;
+    public String userId;
 
     public Necessidade()
     {
 
     }
 
-    public Necessidade(String tipo, String descricao, String justificativa) {
+    public Necessidade(String tipo, String descricao, String justificativa, String userId) {
         this.tipo = tipo;
         this.descricao = descricao;
         this.justificativa = justificativa;
-
+        this.userId = userId;
         this.createdAt = "";
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTipo() {
@@ -76,6 +85,7 @@ public class Necessidade implements Serializable {
         result.put("descricao", this.getDescricao());
         result.put("justificatica", this.getJustificativa());
         result.put("createdAt", this.getCreatedAt());
+        result.put("userId", this.getUserId());
 
         return result;
     }
