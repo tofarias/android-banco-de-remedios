@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tiago.roupas">
+    package="com.br.tiago.roupas"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,7 +9,7 @@
 
     <application
         android:usesCleartextTraffic="true"
-        android:name="com.example.tiago.roupas.IBGEApi.ControlLifeCycle"
+        android:name="com.br.tiago.roupas.IBGEApi.ControlLifeCycle"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +21,7 @@
             android:value="@string/default_notification_channel_id" />
 
         <activity
-            android:name="com.example.tiago.roupas.activity.MainActivity"
+            android:name="com.br.tiago.roupas.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.tiago.roupas.activity.LoginActivity" />
-        <activity android:name="com.example.tiago.roupas.activity.TextoActivity"></activity>
-        <activity android:name="com.example.tiago.roupas.activity.home.DetalheNecessidadeActivity"></activity>
-        <activity android:name="com.example.tiago.roupas.activity.home.DetalheDonativoActivity"></activity>
+        <activity android:name="com.br.tiago.roupas.activity.LoginActivity" />
+        <activity android:name="com.br.tiago.roupas.activity.TextoActivity"></activity>
+        <activity android:name="com.br.tiago.roupas.activity.home.DetalheNecessidadeActivity"></activity>
+        <activity android:name="com.br.tiago.roupas.activity.home.DetalheDonativoActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -45,12 +46,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.example.tiago.roupas.activity.MapActivity"
+            android:name="com.br.tiago.roupas.activity.MapActivity"
             android:label="@string/title_activity_map">
 
         </activity>
 
-        <receiver android:name="com.example.tiago.roupas.WifiReceiver.NetworkChangeReceiver" >
+        <receiver android:name="com.br.tiago.roupas.WifiReceiver.NetworkChangeReceiver" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.STATE_CHANGE" />
