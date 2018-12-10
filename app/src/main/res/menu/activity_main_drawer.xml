@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_baseline_home_24px"
+            android:title="Início" />
+        <item
+            android:id="@+id/nav_cadastro"
+            android:icon="@drawable/ic_baseline_note_add_24px"
+            android:title="Cadastros" />
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ic_baseline_person_24px"
+            android:title="@string/nav_header_user" />
+        <!--<item
+            android:id="@+id/nav_medicine"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/nav_header_medicine" />-->
+        <item
+            android:id="@+id/nav_notificacoes"
+            android:icon="@drawable/ic_baseline_sms_failed_24px"
+            android:title="Notificações" />
+        <item
+            android:id="@+id/nav_upload"
+            android:icon="@drawable/ic_baseline_cloud_upload_24px"
+            android:title="Firebase Upload" />
+
+        <item
+            android:id="@+id/nav_download"
+            android:icon="@drawable/ic_baseline_cloud_download_24px"
+            android:title="Firebase Download" />
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Camera" />
+        <item
+            android:id="@+id/nav_wifi"
+            android:icon="@drawable/ic_baseline_wifi_24px"
+            android:title="Wifi Receiver" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_map"
+                android:icon="@drawable/ic_baseline_map_24px"
+                android:title="Mapa / Radar" />
+            <item
+                android:id="@+id/nav_retrofit_ibge"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Retrofit IBGE" />
+            <item
+                android:id="@+id/nav_sair"
+                android:icon="@drawable/ic_baseline_exit_to_app_24px"
+                android:title="Sair" />
+        </menu>
+    </item>
+
+</menu>
