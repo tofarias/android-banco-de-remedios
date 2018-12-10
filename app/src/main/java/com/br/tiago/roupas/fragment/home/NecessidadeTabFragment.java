@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +28,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Duration;
+import org.joda.time.Interval;
+import org.joda.time.Period;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NecessidadeTabFragment extends Fragment {
@@ -210,13 +218,19 @@ public class NecessidadeTabFragment extends Fragment {
             String tipo          = this.necessidadeList.get(position).getTipo();
             String justificativa = this.necessidadeList.get(position).getJustificativa();
             String descricao     = this.necessidadeList.get(position).getDescricao();
-            String createdAt     = this.necessidadeList.get(position).getCreatedAt();
+            String createdAt     = this.createdAtToBr( this.necessidadeList.get(position).getCreatedAt() );
             String id           = this.necessidadeList.get(position).getId();
 
             holder.textViewTipo.setText( tipo );
             holder.textViewJustificativa.setText( justificativa );
             holder.textViewCreatedAt.setText( createdAt );
-            holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );
+
+            try {
+                holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             holder.textViewNecIdN.setText( id );
         }
 
@@ -229,29 +243,46 @@ public class NecessidadeTabFragment extends Fragment {
             this.necessidadeList = necessidadeList;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        private String calcularPeriodoAguardandoDonativo(String createdAt){
+        private String createdAtToBr(String createdAt){
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fmtUSA = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat fmtBR  = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-            LocalDate dtAtual = LocalDate.now();
-            LocalDate dtCadastro = LocalDate.parse( createdAt, formatter );
+            Date date = null;
+            try {
+                date = fmtUSA.parse(createdAt);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return fmtBR.format(date);
+        }
 
-            String dias  = Long.toString( ChronoUnit.DAYS.between(dtCadastro, dtAtual) );
-            String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
-            String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
+        private String calcularPeriodoAguardandoDonativo(String createdAt) throws ParseException {
 
-            String textoRetorno = "";
+            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            df1.parse(createdAt);
+            /*DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            if( ChronoUnit.DAYS.between(dtCadastro, dtAtual) <= 31 ){
-                textoRetorno = "Há "+dias+" dias";
-            }else if( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) <= 12  ){
-                textoRetorno = "Há "+meses+" meses";
-            }else{
-                textoRetorno = "Há "+ChronoUnit.YEARS.between(dtCadastro, dtAtual)+" anos";
+            DateTime dtToday = new DateTime(); //pega data e hora atual
+            DateTime dtOther = new DateTime(new Date(createdAt)); //exemplo
+            Duration dur = new Duration(dtOther, dtToday);*/
+
+            DateTime dtAtual = new DateTime();
+            DateTime dtInicio = new DateTime( df1 );
+
+            Interval intervalo = new Interval(dtInicio, dtAtual);
+            Period period = intervalo.toPeriod();
+
+            Days d = Days.daysBetween(dtInicio, dtAtual);
+
+            //Log.i("calcularPeriodo", Long.toString( d.getDays() ));
+            Log.i("calcularPeriodo", Long.toString( period.getDays() ));
+
+            if( period.getDays() <= 31 ){
+                return "Há "+period.getDays();
             }
 
-            return textoRetorno;
+            return "";
         }
     }
 }
