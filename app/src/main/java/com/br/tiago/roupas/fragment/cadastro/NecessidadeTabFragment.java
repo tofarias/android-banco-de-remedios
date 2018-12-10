@@ -131,7 +131,7 @@ public class NecessidadeTabFragment extends Fragment {
         }
     }
 
-    private void uploadFoto(){
+    private void uploadFoto(String imgName){
 
         Bitmap bitmap = ((BitmapDrawable) this.imageViewFoto.getDrawable()).getBitmap();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -142,7 +142,7 @@ public class NecessidadeTabFragment extends Fragment {
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
 
-        StorageReference imagemReference = this.mStorageReference.child("imagem").child(currentUser.getUid()+"_"+Long.toString( System.currentTimeMillis() )+".jpg");
+        StorageReference imagemReference = this.mStorageReference.child("imagem").child(imgName);
         UploadTask uploadTask = imagemReference.putBytes(imagem);
 
         uploadTask.addOnProgressListener(getActivity(), new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -235,7 +235,9 @@ public class NecessidadeTabFragment extends Fragment {
                                                               );
 
                             if( ((BitmapDrawable) imageViewFoto.getDrawable()) != null ){
-                                uploadFoto();
+                                String imgName = currentUser.getUid()+"_"+Long.toString( System.currentTimeMillis() )+".jpg";
+                                nec.setImgUrl(imgName);
+                                uploadFoto(imgName);
                             }
 
                             mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
@@ -245,9 +247,6 @@ public class NecessidadeTabFragment extends Fragment {
                             mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
                             mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
 
-
-
-                            //Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                             form.clear();
 
                         }catch (Exception e){

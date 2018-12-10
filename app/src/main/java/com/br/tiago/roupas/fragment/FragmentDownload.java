@@ -62,17 +62,6 @@ public class FragmentDownload extends Fragment {
         }
     };
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if( resultCode == RESULT_OK && requestCode == 1){
-
-            Uri imagemSelecionada = data.getData();
-            this.imageViewFoto.setImageURI(imagemSelecionada);
-        }
-    }
-
     public void download(){
 
         final long MEGABYTES = 1024*1024*5;

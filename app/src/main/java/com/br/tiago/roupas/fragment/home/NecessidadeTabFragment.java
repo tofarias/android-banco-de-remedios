@@ -255,10 +255,6 @@ public class NecessidadeTabFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.O)
         private String calcularPeriodoAguardandoDonativo(String createdAt) throws ParseException {
 
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            //String currentDateandTime = sdf.format(new Date());
-
             String dtCreatedAt = createdAt.substring(0,createdAt.length()-9);
             String textoRetorno = "";
 
@@ -272,7 +268,6 @@ public class NecessidadeTabFragment extends Fragment {
             Log.i("createdAt", Integer.toString(ano));
 
             LocalDate dtAtual = LocalDate.now();
-            //LocalDate dtCadastro = LocalDate.parse( createdAt, formatter );
             LocalDate dtCadastro = LocalDate.of(ano, mes, dia);
 
             String dias  = Long.toString( ChronoUnit.DAYS.between(dtCadastro, dtAtual) );

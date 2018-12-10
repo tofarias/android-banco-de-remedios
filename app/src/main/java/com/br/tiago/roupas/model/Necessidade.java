@@ -13,10 +13,19 @@ public class Necessidade implements Serializable {
     public String descricao;
     public String justificativa;
     public String createdAt;
+    public String imgUrl;
 
     public Necessidade()
     {
 
+    }
+
+    public Necessidade(String tipo, String descricao, String justificativa, String imgUrl) {
+        this.tipo = tipo;
+        this.descricao = descricao;
+        this.justificativa = justificativa;
+        this.createdAt = "";
+        this.imgUrl = imgUrl;
     }
 
     public Necessidade(String tipo, String descricao, String justificativa) {
@@ -24,6 +33,14 @@ public class Necessidade implements Serializable {
         this.descricao = descricao;
         this.justificativa = justificativa;
         this.createdAt = "";
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getId() {
@@ -85,6 +102,7 @@ public class Necessidade implements Serializable {
         result.put("descricao", this.getDescricao());
         result.put("justificatica", this.getJustificativa());
         result.put("createdAt", this.getCreatedAt());
+        result.put("imgUrl", this.getImgUrl());
 
         return result;
     }
