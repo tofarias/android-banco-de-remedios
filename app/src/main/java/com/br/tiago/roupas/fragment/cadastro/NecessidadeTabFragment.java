@@ -139,7 +139,10 @@ public class NecessidadeTabFragment extends Fragment {
 
         byte[] imagem = outputStream.toByteArray();
 
-        StorageReference imagemReference = this.mStorageReference.child("imagem").child("img-001.jpg");
+        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+
+        StorageReference imagemReference = this.mStorageReference.child("imagem").child(currentUser.getUid()+"_"+Long.toString( System.currentTimeMillis() )+".jpg");
         UploadTask uploadTask = imagemReference.putBytes(imagem);
 
         uploadTask.addOnProgressListener(getActivity(), new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -229,7 +232,11 @@ public class NecessidadeTabFragment extends Fragment {
                                                                 spinnerTipoRoupas.getSelectedItem().toString(),
                                                                 editTextDescricao.getText().toString().trim(),
                                                                 editTextJustificativa.getText().toString().trim()
-                                                        );
+                                                              );
+
+                            if( ((BitmapDrawable) imageViewFoto.getDrawable()) != null ){
+                                uploadFoto();
+                            }
 
                             mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
 
@@ -238,7 +245,7 @@ public class NecessidadeTabFragment extends Fragment {
                             mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
                             mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
 
-                            uploadFoto();
+
 
                             //Toast.makeText(getContext(), "Dados salvos com sucesso!", Toast.LENGTH_LONG).show();
                             form.clear();
