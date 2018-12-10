@@ -28,15 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Duration;
-import org.joda.time.Interval;
-import org.joda.time.Period;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -226,7 +221,7 @@ public class NecessidadeTabFragment extends Fragment {
             holder.textViewCreatedAt.setText( createdAt );
 
             try {
-                holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo(createdAt) );
+                holder.textViewAguardando.setText( this.calcularPeriodoAguardandoDonativo( this.necessidadeList.get(position).getCreatedAt() ) );
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -257,32 +252,44 @@ public class NecessidadeTabFragment extends Fragment {
             return fmtBR.format(date);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         private String calcularPeriodoAguardandoDonativo(String createdAt) throws ParseException {
 
-            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            df1.parse(createdAt);
-            /*DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //String currentDateandTime = sdf.format(new Date());
 
-            DateTime dtToday = new DateTime(); //pega data e hora atual
-            DateTime dtOther = new DateTime(new Date(createdAt)); //exemplo
-            Duration dur = new Duration(dtOther, dtToday);*/
+            String dtCreatedAt = createdAt.substring(0,createdAt.length()-9);
+            String textoRetorno = "";
 
-            DateTime dtAtual = new DateTime();
-            DateTime dtInicio = new DateTime( df1 );
+            String[] parts = dtCreatedAt.split("-");
+            int dia = Integer.parseInt( parts[2] );
+            int mes = Integer.parseInt( parts[1] );
+            int ano = Integer.parseInt( parts[0] );
 
-            Interval intervalo = new Interval(dtInicio, dtAtual);
-            Period period = intervalo.toPeriod();
+            Log.i("createdAt", Integer.toString(dia));
+            Log.i("createdAt", Integer.toString(mes));
+            Log.i("createdAt", Integer.toString(ano));
 
-            Days d = Days.daysBetween(dtInicio, dtAtual);
+            LocalDate dtAtual = LocalDate.now();
+            //LocalDate dtCadastro = LocalDate.parse( createdAt, formatter );
+            LocalDate dtCadastro = LocalDate.of(ano, mes, dia);
 
-            //Log.i("calcularPeriodo", Long.toString( d.getDays() ));
-            Log.i("calcularPeriodo", Long.toString( period.getDays() ));
+            String dias  = Long.toString( ChronoUnit.DAYS.between(dtCadastro, dtAtual) );
+            String meses = Long.toString( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) );
+            String anos  = Long.toString( ChronoUnit.YEARS.between(dtCadastro, dtAtual) );
 
-            if( period.getDays() <= 31 ){
-                return "Há "+period.getDays();
+
+
+            if( ChronoUnit.DAYS.between(dtCadastro, dtAtual) <= 31 ){
+                textoRetorno = "Há "+dias+" dia(s)";
+            }else if( ChronoUnit.MONTHS.between(dtCadastro, dtAtual) <= 12  ){
+                textoRetorno = "Há "+meses+" mese(s)";
+            }else{
+                textoRetorno = "Há "+ChronoUnit.YEARS.between(dtCadastro, dtAtual)+" anos";
             }
 
-            return "";
+            return textoRetorno;
         }
     }
 }
