@@ -157,7 +157,8 @@ public class DetalheNecessidadeActivity extends AppCompatActivity {
 
                     Necessidade necessidade = dataSnapshot.getValue(Necessidade.class);
 
-                    if( necessidade.getImgUrl().isEmpty() ){
+                    if( necessidade.getImgUrl() == null ){
+                        mProgressBar.setVisibility(View.GONE);
 
                     }else{
                         StorageReference imagemReference = mStorageReference.child("imagem").child(necessidade.getImgUrl());
@@ -169,7 +170,6 @@ public class DetalheNecessidadeActivity extends AppCompatActivity {
                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                 imageViewFoto.setImageBitmap(bitmap);
                                 imageViewFoto.setVisibility(View.VISIBLE);
-
                                 mProgressBar.setVisibility(View.GONE);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -178,7 +178,10 @@ public class DetalheNecessidadeActivity extends AppCompatActivity {
                                 Log.e("download123", e.getMessage().toString());
                             }
                         });
+
                     }
+
+
                 }
 
             }
