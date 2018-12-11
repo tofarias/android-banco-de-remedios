@@ -142,7 +142,7 @@ public class NecessidadeTabFragment extends Fragment {
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
 
-        StorageReference imagemReference = this.mStorageReference.child("imagem").child(imgName);
+        StorageReference imagemReference = this.mStorageReference.child("imagens").child(imgName);
         UploadTask uploadTask = imagemReference.putBytes(imagem);
 
         uploadTask.addOnProgressListener(getActivity(), new OnProgressListener<UploadTask.TaskSnapshot>() {
