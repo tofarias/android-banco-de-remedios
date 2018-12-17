@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.br.tiago.roupas.R;
 import com.br.tiago.roupas.model.Necessidade;
+import com.br.tiago.roupas.model.Usuario;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -224,30 +226,35 @@ public class NecessidadeTabFragment extends Fragment {
                         try {
 
                             FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-                            FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+                            final FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
+                            final String uid = currentUser.getUid();
 
-                            String uid = currentUser.getUid();
-
-                            Necessidade nec = new Necessidade(
+                            final Necessidade nec = new Necessidade(
                                                                 spinnerTipoRoupas.getSelectedItem().toString(),
                                                                 editTextDescricao.getText().toString().trim(),
                                                                 editTextJustificativa.getText().toString().trim()
                                                               );
 
+                            final String imgName;
                             if( ((BitmapDrawable) imageViewFoto.getDrawable()) != null ){
-                                String imgName = currentUser.getUid()+"_"+Long.toString( System.currentTimeMillis() )+".jpg";
+                                imgName = currentUser.getUid()+"_"+Long.toString( System.currentTimeMillis() )+".jpg";
                                 nec.setImgUrl(imgName);
-                                uploadFoto(imgName);
                             }
 
-                            mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec );
+                            mDatabaseReference.child( uid ).child("necessidades").push().setValue( nec ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
 
-                            mDatabaseReference.child( uid ).child("usuario").child("id").setValue( uid );
-                            mDatabaseReference.child( uid ).child("usuario").child("nome").setValue( currentUser.getDisplayName() );
-                            mDatabaseReference.child( uid ).child("usuario").child("email").setValue( currentUser.getEmail() );
-                            mDatabaseReference.child( uid ).child("usuario").child("photo_url").setValue( currentUser.getPhotoUrl().toString() );
+                                    if( nec.getImgUrl() != null && !nec.getImgUrl().isEmpty() ){
+                                        uploadFoto( nec.getImgUrl() );
+                                    }
 
-                            form.clear();
+                                    Usuario usuario = new Usuario(currentUser.getDisplayName(), currentUser.getEmail(), currentUser.getPhotoUrl().toString(), uid);
+                                    mDatabaseReference.child( uid ).child("usuario").setValue(usuario);
+
+                                    Toast.makeText(getContext(), "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
                         }catch (Exception e){
                             Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_LONG).show();
