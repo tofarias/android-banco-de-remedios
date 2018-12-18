@@ -101,8 +101,8 @@ public class NecessidadeTabFragment extends Fragment {
 
             if (recyclerView != null) {
                 recyclerView.setAdapter(necessidadeAdapter);
-                recyclerView.addItemDecoration(
-                        new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+                /*recyclerView.addItemDecoration(
+                        new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));*/
             }
 
             mProgressBar.setVisibility(View.GONE);
